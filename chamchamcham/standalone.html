@@ -111,6 +111,13 @@ button.key{background:var(--caption); color:var(--ink); border-color:transparent
 button.go{background:var(--hit); color:#fff; border-color:transparent}
 .opts{display:flex; gap:16px; justify-content:center; margin-top:12px; color:var(--dim); font-size:13px; flex-wrap:wrap}
 .opts label{display:flex; gap:6px; align-items:center; cursor:pointer}
+button.linkish{background:none; border:0; color:var(--caption); text-decoration:underline; padding:0; font-size:13px; font-weight:400}
+.diag{
+  font-family:var(--mono); font-size:12px; line-height:1.7; white-space:pre-wrap; word-break:break-word;
+  background:var(--panel2); border:1px solid var(--edge); color:var(--dim);
+  padding:12px 14px; margin:12px 0 0; border-radius:2px;
+}
+.diag b{color:var(--caption); font-weight:500}
 
 /* 스코어 */
 .score{
@@ -172,7 +179,9 @@ button.go{background:var(--hit); color:#fff; border-color:transparent}
   <div class="opts">
     <label><input type="checkbox" id="kb"> 키보드 모드 (← →)</label>
     <label><input type="checkbox" id="sfx" checked> 소리</label>
+    <button id="btnDiag" class="linkish">카메라 진단</button>
   </div>
+  <pre class="diag" id="diag" hidden></pre>
 
   <div class="score">
     <div><span>Round</span><b id="sRound">0</b></div>
@@ -238,7 +247,24 @@ const proc=document.createElement('canvas'); proc.width=CFG.procW; proc.height=C
 const pctx=proc.getContext('2d',{willReadFrequently:true});
 const octx=ovl.getContext('2d');
 
+function camBlocked(reason, detail){
+  hint.innerHTML='<b style="color:#FFD23F">'+reason+'</b><br>'+detail+
+    '<br><br>키보드 모드로 전환했습니다 — <b>← →</b> 키로 고개를 돌리세요.';
+  hint.classList.remove('off');
+  kb.checked=true; kb.dispatchEvent(new Event('change'));
+  talk('카메라가 막혔네. 키보드로 붙자 — ← → 로 고개 돌려.');
+  showDiag();
+}
+
 async function startCam(){
+  // 보안 컨텍스트가 아니면 API 자체가 없다 (http:// 로 열었거나 안전하지 않은 출처)
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    camBlocked('이 페이지에는 카메라 API가 없습니다',
+      window.isSecureContext
+        ? '브라우저가 카메라 기능을 이 페이지에 허용하지 않았습니다. 파일을 내려받아 <b>localhost</b> 에서 직접 열면 동작합니다.'
+        : '카메라는 <b>https</b> 또는 <b>localhost</b> 에서만 열립니다. 지금 주소는 <b>'+location.protocol+'</b> 입니다.');
+    return;
+  }
   try{
     const st=await navigator.mediaDevices.getUserMedia({video:{width:{ideal:640},height:{ideal:480},facingMode:'user'},audio:false});
     video.srcObject=st; await video.play();
@@ -246,11 +272,38 @@ async function startCam(){
     setCall('정면을 보고 “얼굴 정렬”을 누르세요');
     S.run=true; loop();
   }catch(err){
-    hint.innerHTML='이 페이지에서 카메라를 열 수 없습니다.<br><b>키보드 모드</b>로 바로 플레이하세요. ('+err.name+')';
-    kb.checked=true; kb.dispatchEvent(new Event('change'));
-    talk('카메라가 막혔네. 키보드로 붙자 — ← → 로 고개 돌려.');
+    const why={
+      NotAllowedError: window.top!==window.self
+        ? '이 페이지가 다른 사이트 안에 삽입되어 있어 카메라 권한이 차단되었습니다. 파일을 내려받아 localhost 에서 열어주세요.'
+        : '카메라 권한이 거부되었습니다. 주소창 왼쪽 자물쇠 아이콘 → 카메라 → 허용으로 바꾼 뒤 새로고침하세요.',
+      NotFoundError:'연결된 카메라를 찾지 못했습니다.',
+      NotReadableError:'다른 앱(줌, 팀즈, 카메라 앱 등)이 카메라를 쓰고 있습니다. 그 앱을 끄고 다시 시도하세요.',
+      OverconstrainedError:'요청한 해상도를 지원하지 않는 카메라입니다.',
+      SecurityError:'브라우저 보안 정책으로 차단되었습니다.'
+    }[err.name] || err.message;
+    camBlocked('카메라를 열 수 없습니다 ('+err.name+')', why);
   }
 }
+
+async function showDiag(){
+  const d=$('diag'); d.hidden=false;
+  let perm='확인 불가', cams='확인 불가';
+  try{ perm=(await navigator.permissions.query({name:'camera'})).state; }catch(e){}
+  try{
+    const list=await navigator.mediaDevices.enumerateDevices();
+    cams=list.filter(v=>v.kind==='videoinput').length+'개';
+  }catch(e){}
+  d.innerHTML=[
+    '<b>카메라 진단</b>',
+    '주소            '+location.protocol+'//'+location.host,
+    '보안 컨텍스트    '+(window.isSecureContext?'예 (카메라 가능)':'아니오 (카메라 불가 — https/localhost 필요)'),
+    '다른 페이지 안   '+(window.top!==window.self?'예 (iframe — 권한이 막힐 수 있음)':'아니오'),
+    'mediaDevices    '+(navigator.mediaDevices?'있음':'없음'),
+    '카메라 권한      '+perm,
+    '카메라 장치      '+cams
+  ].join('\n');
+}
+$('btnDiag').addEventListener('click',showDiag);
 
 function analyze(){
   pctx.save(); pctx.translate(CFG.procW,0); pctx.scale(-1,1);

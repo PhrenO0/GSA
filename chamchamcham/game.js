@@ -70,7 +70,23 @@ proc.width = CFG.procW; proc.height = CFG.procH;
 const pctx = proc.getContext('2d', { willReadFrequently:true });
 const octx = overlay.getContext('2d');
 
+function camBlocked(reason, detail){
+  camHint.innerHTML = '<b>'+reason+'</b><br>'+detail+'<br><br>키보드 모드로 전환했습니다 — ← → 키로 고개를 돌리세요.';
+  camHint.classList.remove('hide');
+  kbMode.checked = true; kbMode.dispatchEvent(new Event('change'));
+  talk('카메라가 막혔네. 키보드로 붙자 — ← → 로 고개 돌려.');
+  showDiag();
+}
+
 async function startCam(){
+  // 보안 컨텍스트(https / localhost)가 아니면 카메라 API 자체가 존재하지 않는다
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    camBlocked('이 페이지에는 카메라 API가 없습니다',
+      window.isSecureContext
+        ? '브라우저가 이 페이지에 카메라 기능을 허용하지 않았습니다.'
+        : '카메라는 https 또는 localhost 에서만 열립니다. 지금 주소는 ' + location.protocol + ' 입니다.');
+    return;
+  }
   try{
     S.stream = await navigator.mediaDevices.getUserMedia({
       video:{ width:{ideal:640}, height:{ideal:480}, facingMode:'user' }, audio:false
@@ -83,11 +99,37 @@ async function startCam(){
     S.running = true;
     loop();
   }catch(err){
-    setStatus('웹캠을 열 수 없습니다: ' + err.message);
-    talk('웹캠이 없으면 키보드 모드로 하자. 아래 체크박스 켜.');
-    kbMode.checked = true;
-    S.calibrated = true; btnStart.disabled = false;
+    const why = {
+      NotAllowedError: window.top !== window.self
+        ? '이 페이지가 다른 사이트 안에 삽입되어 있어 카메라 권한이 차단되었습니다. localhost 에서 직접 열어주세요.'
+        : '카메라 권한이 거부되었습니다. 주소창 왼쪽 자물쇠 → 카메라 → 허용으로 바꾼 뒤 새로고침하세요.',
+      NotFoundError: '연결된 카메라를 찾지 못했습니다.',
+      NotReadableError: '다른 앱(줌, 팀즈, 카메라 앱 등)이 카메라를 쓰고 있습니다. 그 앱을 끄고 다시 시도하세요.',
+      OverconstrainedError: '요청한 해상도를 지원하지 않는 카메라입니다.',
+      SecurityError: '브라우저 보안 정책으로 차단되었습니다.'
+    }[err.name] || err.message;
+    camBlocked('카메라를 열 수 없습니다 (' + err.name + ')', why);
   }
+}
+
+async function showDiag(){
+  const d = $('diag'); if(!d) return;
+  d.hidden = false;
+  let perm = '확인 불가', cams = '확인 불가';
+  try{ perm = (await navigator.permissions.query({name:'camera'})).state; }catch(e){}
+  try{
+    const list = await navigator.mediaDevices.enumerateDevices();
+    cams = list.filter(v => v.kind === 'videoinput').length + '개';
+  }catch(e){}
+  d.textContent = [
+    '카메라 진단',
+    '주소            ' + location.protocol + '//' + location.host,
+    '보안 컨텍스트    ' + (window.isSecureContext ? '예 (카메라 가능)' : '아니오 (https/localhost 필요)'),
+    '다른 페이지 안   ' + (window.top !== window.self ? '예 (iframe — 권한이 막힐 수 있음)' : '아니오'),
+    'mediaDevices    ' + (navigator.mediaDevices ? '있음' : '없음'),
+    '카메라 권한      ' + perm,
+    '카메라 장치      ' + cams
+  ].join('\n');
 }
 
 // ---------- 스킨 픽셀 기반 얼굴 위치 추정 ----------
@@ -349,6 +391,7 @@ kbMode.addEventListener('change', () => {
 
 // ---------- 버튼 ----------
 btnCam.addEventListener('click', startCam);
+const btnDiag = $('btnDiag'); if(btnDiag) btnDiag.addEventListener('click', showDiag);
 btnCalib.addEventListener('click', calibrate);
 btnStart.addEventListener('click', startGame);
 btnReset.addEventListener('click', () => {

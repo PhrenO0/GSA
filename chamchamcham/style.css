@@ -111,3 +111,10 @@ body{
 .rules{max-width:640px; margin:26px auto 0; text-align:left; color:var(--dim); font-size:13px}
 .rules summary{cursor:pointer; color:var(--fg)}
 .rules ul{line-height:1.8}
+
+.diag{
+  max-width:620px; margin:14px auto 0; text-align:left; white-space:pre-wrap; word-break:break-word;
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:12px; line-height:1.7;
+  background:var(--bg2); border:1px solid var(--line); color:var(--dim); padding:12px 14px; border-radius:8px;
+}
+.cam-hint b{color:var(--accent)}
