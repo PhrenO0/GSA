@@ -1,82 +1,93 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>참참참 vs Claude</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap" />
 <link rel="stylesheet" href="style.css" />
-</head>
-<body>
-<header class="topbar">
-  <h1>참<span>참</span>참</h1>
-  <p class="sub">웹캠으로 고개를 돌려 피하세요. 공격은 <b>Claude</b>가 합니다.</p>
-</header>
 
-<main class="stage">
-  <!-- Claude 패널 -->
-  <section class="panel claude" id="claudePanel">
-    <div class="panel-label">CLAUDE · 공격</div>
-    <div class="claude-face" id="claudeFace">
-      <div class="eye left"></div>
-      <div class="eye right"></div>
-      <div class="mouth" id="claudeMouth"></div>
-    </div>
-    <div class="hand" id="claudeHand">👉</div>
-    <div class="talk" id="claudeTalk">준비되면 시작을 눌러.</div>
-    <div class="lives" id="claudeScore">획득 0</div>
-  </section>
-
-  <!-- 플레이어 패널 -->
-  <section class="panel player">
-    <div class="panel-label">YOU · 수비</div>
-    <div class="cam-wrap">
-      <video id="video" playsinline muted></video>
-      <canvas id="overlay"></canvas>
-      <div class="cam-hint" id="camHint">웹캠을 켜주세요</div>
-      <div class="dir-badge" id="dirBadge">–</div>
-    </div>
-    <div class="lives" id="playerLives">목숨 ❤️❤️❤️</div>
-  </section>
-</main>
-
-<div class="beatbar">
-  <div class="beat" id="beat1">참</div>
-  <div class="beat" id="beat2">참</div>
-  <div class="beat" id="beat3">참</div>
+<div class="marquee">
+  <h1>참<em>참</em>참</h1>
+  <p>공격은 Claude. 마지막 “참!”에 가리키는 방향을 웹캠 앞에서 고개를 돌려 피하세요.</p>
 </div>
 
-<div class="status" id="status">웹캠 시작 → 얼굴 정렬 → 게임 시작</div>
+<div class="wrap">
+  <div class="stage">
+    <section class="panel" id="pClaude">
+      <div class="tag">Claude · 공격</div>
+      <div class="body">
+        <div class="face" id="face"><i class="eye l"></i><i class="eye r"></i><i class="mouth"></i></div>
+        <div class="hand" id="hand">👉</div>
+        <div class="talk" id="talk">시작을 누르면 간다.</div>
+      </div>
+    </section>
 
-<div class="controls">
-  <button id="btnCam" class="btn primary">웹캠 시작</button>
-  <button id="btnCalib" class="btn" disabled>얼굴 정렬(캘리브레이션)</button>
-  <button id="btnStart" class="btn go" disabled>게임 시작</button>
-  <button id="btnReset" class="btn ghost">리셋</button>
-  <label class="toggle"><input type="checkbox" id="kbMode" /> 키보드 모드(← →)</label>
-  <label class="toggle"><input type="checkbox" id="sfx" checked /> 소리</label>
-  <button id="btnDiag" class="btn ghost">카메라 진단</button>
+    <section class="panel" id="pMe">
+      <div class="tag">You · 수비</div>
+      <div class="body">
+        <div class="cam">
+          <video id="video" playsinline muted></video>
+          <canvas id="ovl"></canvas>
+          <div class="hint" id="hint">웹캠 시작을 눌러 카메라를 켜세요.<br />카메라가 막히면 키보드 모드로 바로 플레이할 수 있습니다.</div>
+          <div class="cue" id="cue" hidden></div>
+          <div class="badge" id="badge">— — —</div>
+        </div>
+        <div class="meter" id="meter" hidden>
+          <div class="track">
+            <i class="mark m-left" id="mkLeft"><span>왼쪽</span></i>
+            <i class="mark m-center" id="mkCenter"><span>정면</span></i>
+            <i class="mark m-right" id="mkRight"><span>오른쪽</span></i>
+            <i class="needle" id="needle"></i>
+          </div>
+        </div>
+        <div class="lifebar" id="lifebar">목숨 ❤︎❤︎❤︎</div>
+      </div>
+    </section>
+  </div>
+
+  <div class="beats"><div class="beat" id="b1">참</div><div class="beat" id="b2">참</div><div class="beat" id="b3">참</div></div>
+  <p class="call" id="call">웹캠 시작 → 고개 인식 학습 → 게임 시작</p>
+
+  <div class="controls">
+    <button id="btnCam" class="key">웹캠 시작</button>
+    <button id="btnCalib" disabled>고개 인식 학습</button>
+    <button id="btnStart" class="go" disabled>게임 시작</button>
+    <button id="btnReset">리셋</button>
+  </div>
+  <div class="opts">
+    <label><input type="checkbox" id="kb" /> 키보드 모드 (← →)</label>
+    <label><input type="checkbox" id="sfx" checked /> 소리</label>
+    <label class="slider">감도
+      <input type="range" id="sens" min="25" max="80" value="45" />
+      <output id="sensOut">보통</output>
+    </label>
+    <button id="btnDiag" class="linkish">카메라 진단</button>
+  </div>
+  <pre class="diag" id="diag" hidden></pre>
+
+  <div class="score">
+    <div><span>Round</span><b id="sRound">0</b></div>
+    <div><span>성공</span><b id="sWin">0</b></div>
+    <div><span>연속</span><b id="sStreak">0</b></div>
+    <div><span>최고</span><b id="sBest">0</b></div>
+  </div>
+
+  <div class="notes">
+    <h2>규칙</h2>
+    <ul>
+      <li>Claude가 “참! 참! 참!”을 외치고 <b>마지막 참</b>에 좌 또는 우를 가리킵니다. <b>같은 방향이면 걸립니다</b>(목숨 -1), 반대면 성공.</li>
+      <li>방향은 <b>당신 기준</b>입니다. 화면은 거울이라 보이는 그대로 왼쪽/오른쪽.</li>
+      <li>고개를 안 돌리면 무효 라운드로 다시 진행합니다. 목숨 3개를 잃으면 끝.</li>
+      <li>Claude는 당신의 직전 선택 뒤에 어떤 방향이 자주 나왔는지 세어 그 지점을 찌릅니다. 습관을 만들지 마세요.</li>
+    </ul>
+    <h2>인식이 안 될 때</h2>
+    <ul>
+      <li><b>고개 인식 학습</b>을 다시 하세요. 정면 · 왼쪽 · 오른쪽을 실제 게임에서 할 동작 그대로 크게 해주는 것이 중요합니다.</li>
+      <li>게이지 바늘이 고개를 돌릴 때 함께 움직이는지 확인하세요. 거의 안 움직이면 조명을 얼굴 정면으로 밝히고 다시 학습하세요.</li>
+      <li>그래도 아슬아슬하면 <b>감도</b>를 “예민”쪽으로 옮기세요.</li>
+      <li>배경에 살구색·나무색 물건이 크게 잡히면 인식이 흔들립니다. 벽을 등지는 편이 좋습니다.</li>
+    </ul>
+  </div>
 </div>
-<pre class="diag" id="diag" hidden></pre>
-
-<section class="scoreboard">
-  <div><span class="k">라운드</span><b id="sRound">0</b></div>
-  <div><span class="k">성공</span><b id="sWin">0</b></div>
-  <div><span class="k">연속</span><b id="sStreak">0</b></div>
-  <div><span class="k">최고연속</span><b id="sBest">0</b></div>
-</section>
-
-<details class="rules">
-  <summary>게임 규칙 / 팁</summary>
-  <ul>
-    <li>Claude가 "참! 참! 참!" 을 외치고 <b>마지막 참</b>에 왼쪽 또는 오른쪽을 가리킵니다.</li>
-    <li>같은 방향이면 <b>당신이 걸립니다</b>(목숨 -1). 반대면 <b>성공</b>.</li>
-    <li>고개를 안 돌리면 무효 라운드로 다시 진행합니다.</li>
-    <li>방향은 <b>당신 기준</b>입니다(거울 화면 그대로 왼쪽/오른쪽).</li>
-    <li>Claude는 당신의 이전 선택 패턴을 학습합니다. 습관을 만들지 마세요.</li>
-    <li>웹캠 인식이 잘 안되면 <b>키보드 모드</b>로 즐길 수 있습니다.</li>
-  </ul>
-</details>
 
 <script src="game.js"></script>
-</body>
-</html>

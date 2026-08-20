@@ -1,15 +1,18 @@
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>참참참 vs Claude</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Sans+KR:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap" />
 <style>
 :root{
   --stage:#100F0C; --panel:#1B1A15; --panel2:#232118; --edge:#33301F;
   --caption:#FFD23F; --ink:#14130D; --paper:#F3EEDD; --dim:#928C74;
   --hit:#FF4D2E; --safe:#8DD35F;
-  --display:"Black Han Sans","Apple SD Gothic Neo",sans-serif;
-  --body:"IBM Plex Sans KR","Apple SD Gothic Neo",system-ui,sans-serif;
-  --mono:"IBM Plex Mono",ui-monospace,monospace;
+  --kr:"Apple SD Gothic Neo","Malgun Gothic","맑은 고딕","Noto Sans KR";
+  --display:"Black Han Sans",var(--kr),sans-serif;
+  --body:"IBM Plex Sans KR",var(--kr),system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,Menlo,monospace;
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0}
@@ -73,14 +76,41 @@ body{
 .cam{position:relative; width:100%; aspect-ratio:4/3; background:#000; border:1px solid var(--edge); overflow:hidden}
 #video,#ovl{position:absolute; inset:0; width:100%; height:100%; object-fit:cover}
 #video{transform:scaleX(-1)}
-.hint{position:absolute; inset:0; display:flex; align-items:center; justify-content:center; text-align:center;
-  padding:18px; color:var(--dim); font-size:13px; line-height:1.6; background:#000}
+.hint{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;
+  text-align:center; padding:18px; color:var(--dim); font-size:13px; line-height:1.7; background:#000}
 .hint.off{display:none}
+.hint b{color:var(--caption)}
 .badge{
   position:absolute; left:50%; bottom:10px; transform:translateX(-50%);
   font-family:var(--mono); font-size:12px; letter-spacing:.12em;
   background:rgba(0,0,0,.72); border:1px solid var(--edge); padding:5px 14px;
 }
+.cue{
+  position:absolute; inset:auto 0 auto 0; top:0; padding:10px;
+  background:var(--caption); color:var(--ink); font-weight:700; font-size:15px; text-align:center;
+}
+.cue[hidden]{display:none}
+
+/* 인식 게이지 */
+.meter{width:100%; padding:14px 4px 4px}
+.meter .track{
+  position:relative; height:8px; background:var(--panel2);
+  border:1px solid var(--edge); border-radius:999px;
+}
+.meter .mark{
+  position:absolute; top:-5px; width:2px; height:18px; background:var(--edge);
+  transform:translateX(-50%); transition:left .2s;
+}
+.meter .mark.m-center{background:var(--dim)}
+.meter .mark span{
+  position:absolute; top:20px; left:50%; transform:translateX(-50%);
+  font-size:10px; font-family:var(--mono); color:var(--dim); white-space:nowrap;
+}
+.meter .needle{
+  position:absolute; top:-7px; width:12px; height:22px; border-radius:3px;
+  background:var(--caption); transform:translateX(-50%); box-shadow:0 0 12px rgba(255,210,63,.5);
+}
+.meter{margin-bottom:16px}
 
 /* 박자 */
 .beats{display:flex; gap:12px; justify-content:center; margin:24px 0 8px}
@@ -93,7 +123,7 @@ body{
 .beat.hit{background:var(--hit); border-color:var(--hit); color:#fff; transform:scale(1.3)}
 .call{
   text-align:center; font-family:var(--display); font-size:clamp(22px,4.4vw,34px);
-  min-height:46px; letter-spacing:.05em; text-wrap:balance;
+  min-height:46px; letter-spacing:.05em; text-wrap:balance; padding:0 12px;
 }
 .call.caught{color:var(--hit)} .call.dodged{color:var(--safe)}
 
@@ -109,13 +139,15 @@ button:focus-visible{outline:2px solid var(--caption); outline-offset:2px}
 button:disabled{opacity:.35; cursor:not-allowed}
 button.key{background:var(--caption); color:var(--ink); border-color:transparent}
 button.go{background:var(--hit); color:#fff; border-color:transparent}
-.opts{display:flex; gap:16px; justify-content:center; margin-top:12px; color:var(--dim); font-size:13px; flex-wrap:wrap}
-.opts label{display:flex; gap:6px; align-items:center; cursor:pointer}
 button.linkish{background:none; border:0; color:var(--caption); text-decoration:underline; padding:0; font-size:13px; font-weight:400}
+.opts{display:flex; gap:16px; justify-content:center; align-items:center; margin-top:14px; color:var(--dim); font-size:13px; flex-wrap:wrap}
+.opts label{display:flex; gap:6px; align-items:center; cursor:pointer}
+.opts .slider input{width:110px; accent-color:var(--caption)}
+.opts output{font-family:var(--mono); font-size:12px; color:var(--caption); min-width:4ch}
 .diag{
-  font-family:var(--mono); font-size:12px; line-height:1.7; white-space:pre-wrap; word-break:break-word;
-  background:var(--panel2); border:1px solid var(--edge); color:var(--dim);
-  padding:12px 14px; margin:12px 0 0; border-radius:2px;
+  max-width:620px; margin:14px auto 0; text-align:left; white-space:pre-wrap; word-break:break-word;
+  font-family:var(--mono); font-size:12px; line-height:1.7;
+  background:var(--panel2); border:1px solid var(--edge); color:var(--dim); padding:12px 14px;
 }
 .diag b{color:var(--caption); font-weight:500}
 
@@ -127,10 +159,11 @@ button.linkish{background:none; border:0; color:var(--caption); text-decoration:
 .score div{background:var(--panel); padding:12px 8px; text-align:center}
 .score span{font-family:var(--mono); font-size:10px; letter-spacing:.18em; color:var(--dim); text-transform:uppercase}
 .score b{display:block; font-family:var(--mono); font-size:26px; font-variant-numeric:tabular-nums; margin-top:4px}
-.lifebar{text-align:center; font-size:14px; color:var(--dim); margin-top:8px; letter-spacing:.1em}
+.lifebar{text-align:center; font-size:14px; color:var(--dim); margin-top:auto; padding-top:8px; letter-spacing:.1em}
 
 .notes{margin-top:30px; border-top:1px solid var(--edge); padding-top:18px; color:var(--dim); font-size:13px; line-height:1.85}
-.notes h2{font-family:var(--mono); font-size:11px; letter-spacing:.2em; color:var(--caption); text-transform:uppercase; margin:0 0 8px}
+.notes h2{font-family:var(--mono); font-size:11px; letter-spacing:.2em; color:var(--caption); text-transform:uppercase; margin:18px 0 8px}
+.notes h2:first-child{margin-top:0}
 .notes ul{margin:0; padding-left:18px}
 .notes b{color:var(--paper)}
 .notes code{font-family:var(--mono); font-size:12px; background:var(--panel2); padding:1px 5px}
@@ -159,8 +192,17 @@ button.linkish{background:none; border:0; color:var(--caption); text-decoration:
         <div class="cam">
           <video id="video" playsinline muted></video>
           <canvas id="ovl"></canvas>
-          <div class="hint" id="hint">웹캠 시작을 눌러 카메라를 켜세요.<br>카메라가 막히면 키보드 모드로 바로 플레이할 수 있습니다.</div>
+          <div class="hint" id="hint">웹캠 시작을 눌러 카메라를 켜세요.<br />카메라가 막히면 키보드 모드로 바로 플레이할 수 있습니다.</div>
+          <div class="cue" id="cue" hidden></div>
           <div class="badge" id="badge">— — —</div>
+        </div>
+        <div class="meter" id="meter" hidden>
+          <div class="track">
+            <i class="mark m-left" id="mkLeft"><span>왼쪽</span></i>
+            <i class="mark m-center" id="mkCenter"><span>정면</span></i>
+            <i class="mark m-right" id="mkRight"><span>오른쪽</span></i>
+            <i class="needle" id="needle"></i>
+          </div>
         </div>
         <div class="lifebar" id="lifebar">목숨 ❤︎❤︎❤︎</div>
       </div>
@@ -168,17 +210,21 @@ button.linkish{background:none; border:0; color:var(--caption); text-decoration:
   </div>
 
   <div class="beats"><div class="beat" id="b1">참</div><div class="beat" id="b2">참</div><div class="beat" id="b3">참</div></div>
-  <p class="call" id="call">웹캠 시작 → 얼굴 정렬 → 게임 시작</p>
+  <p class="call" id="call">웹캠 시작 → 고개 인식 학습 → 게임 시작</p>
 
   <div class="controls">
     <button id="btnCam" class="key">웹캠 시작</button>
-    <button id="btnCalib" disabled>얼굴 정렬</button>
+    <button id="btnCalib" disabled>고개 인식 학습</button>
     <button id="btnStart" class="go" disabled>게임 시작</button>
     <button id="btnReset">리셋</button>
   </div>
   <div class="opts">
-    <label><input type="checkbox" id="kb"> 키보드 모드 (← →)</label>
-    <label><input type="checkbox" id="sfx" checked> 소리</label>
+    <label><input type="checkbox" id="kb" /> 키보드 모드 (← →)</label>
+    <label><input type="checkbox" id="sfx" checked /> 소리</label>
+    <label class="slider">감도
+      <input type="range" id="sens" min="25" max="80" value="45" />
+      <output id="sensOut">보통</output>
+    </label>
     <button id="btnDiag" class="linkish">카메라 진단</button>
   </div>
   <pre class="diag" id="diag" hidden></pre>
@@ -197,29 +243,56 @@ button.linkish{background:none; border:0; color:var(--caption); text-decoration:
       <li>방향은 <b>당신 기준</b>입니다. 화면은 거울이라 보이는 그대로 왼쪽/오른쪽.</li>
       <li>고개를 안 돌리면 무효 라운드로 다시 진행합니다. 목숨 3개를 잃으면 끝.</li>
       <li>Claude는 당신의 직전 선택 뒤에 어떤 방향이 자주 나왔는지 세어 그 지점을 찌릅니다. 습관을 만들지 마세요.</li>
-      <li>인식 원리 — 프레임을 160×120으로 줄여 YCbCr 스킨톤으로 얼굴 픽셀 무게중심을 구하고, 정면 기준값과의 차이로 좌/중앙/우를 판정합니다. 외부 라이브러리 없음.</li>
-      <li>카메라가 이 페이지에서 막히면 <code>chamchamcham/</code> 폴더를 내려받아 <code>python3 -m http.server</code> 로 로컬 실행하세요.</li>
+    </ul>
+    <h2>인식이 안 될 때</h2>
+    <ul>
+      <li><b>고개 인식 학습</b>을 다시 하세요. 정면 · 왼쪽 · 오른쪽을 실제 게임에서 할 동작 그대로 크게 해주는 것이 중요합니다.</li>
+      <li>게이지 바늘이 고개를 돌릴 때 함께 움직이는지 확인하세요. 거의 안 움직이면 조명을 얼굴 정면으로 밝히고 다시 학습하세요.</li>
+      <li>그래도 아슬아슬하면 <b>감도</b>를 “예민”쪽으로 옮기세요.</li>
+      <li>배경에 살구색·나무색 물건이 크게 잡히면 인식이 흔들립니다. 벽을 등지는 편이 좋습니다.</li>
     </ul>
   </div>
 </div>
 
 <script>
+/* 참참참 vs Claude — 웹캠 고개 방향 인식 게임 (외부 라이브러리 없음)
+ *
+ * 인식 원리
+ *  1. 프레임을 160x120 으로 줄이고 좌우 반전해 그린다 (캔버스 좌표 = 거울 화면 좌표).
+ *  2. YCbCr 스킨톤 필터로 얼굴 픽셀을 고르고 무게중심 x 를 구한다.
+ *  3. 고개를 "회전"하면 머리 실루엣은 제자리여도 보이는 살색 영역이 한쪽으로 쏠리므로
+ *     이 무게중심이 움직인다. 이동이든 회전이든 신호는 같은 스칼라 하나다.
+ *  4. 방향에 따른 부호는 사람/카메라마다 다르므로 고정하지 않고
+ *     정면·왼쪽·오른쪽 세 자세를 실제로 학습해서 기준값으로 삼는다.
+ */
 (() => {
 'use strict';
+
 const $ = id => document.getElementById(id);
-const video=$('video'), ovl=$('ovl'), hint=$('hint'), badge=$('badge');
+const video=$('video'), ovl=$('ovl'), hint=$('hint'), badge=$('badge'), cue=$('cue');
 const call=$('call'), talkBox=$('talk'), hand=$('hand'), face=$('face');
 const pClaude=$('pClaude'), pMe=$('pMe'), lifebar=$('lifebar');
+const meter=$('meter'), needle=$('needle'), mkLeft=$('mkLeft'), mkCenter=$('mkCenter'), mkRight=$('mkRight');
 const beats=[$('b1'),$('b2'),$('b3')];
-const btnCam=$('btnCam'), btnCalib=$('btnCalib'), btnStart=$('btnStart'), btnReset=$('btnReset');
-const kb=$('kb'), sfx=$('sfx');
+const btnCam=$('btnCam'), btnCalib=$('btnCalib'), btnStart=$('btnStart'), btnReset=$('btnReset'), btnDiag=$('btnDiag');
+const kb=$('kb'), sfx=$('sfx'), sens=$('sens'), sensOut=$('sensOut');
 const sRound=$('sRound'), sWin=$('sWin'), sStreak=$('sStreak'), sBest=$('sBest');
 
-const CFG={procW:160,procH:120,minSkin:90,thr:0.055,smooth:5,beat0:820,beatMin:430,beatStep:28,hold:1500,lives:3};
-const S={run:false,cal:false,baseX:null,spread:0,samples:[],dir:'none',locked:'none',
-         round:0,wins:0,streak:0,best:0,lives:CFG.lives,caught:0,hist:[],timers:[]};
+const CFG = {
+  procW:160, procH:120,
+  minSkin:60,          // 얼굴로 인정할 최소 스킨 픽셀 가중합
+  smooth:5,            // 중앙값 스무딩 창
+  minSpread:4.5,       // 학습된 좌우 기준값의 최소 간격 (px, 160 기준)
+  beat0:820, beatMin:430, beatStep:28,
+  hold:1500, lives:3
+};
 
-const LINES={
+const S = {
+  run:false, cal:null, samples:[], dir:'none', locked:'none', busy:false,
+  round:0, wins:0, streak:0, best:0, lives:CFG.lives, caught:0, hist:[], timers:[]
+};
+
+const LINES = {
   ready:['자, 간다. 눈 크게 떠.','이번엔 못 피할걸?','너 방금 오른쪽 갔지. 기억해뒀어.','고개 준비. 들어간다.','손목 풀었다.'],
   win:['잡았다! 방금 티 났어.','읽혔어. 패턴 단순하네.','내 예측 적중.','거봐, 거기 갈 줄 알았어.'],
   lose:['어라, 피했네.','운 좋았다.','인정. 반사신경 좋네.','이번 건 내 실수.'],
@@ -227,55 +300,62 @@ const LINES={
   overWin:['내가 이겼다. 재도전?','세 번 잡았어. 게임 끝!'],
   overLose:['…네가 이겼어. 잘하네.','완패 인정. 리셋하고 다시 붙자.']
 };
-const pick=a=>a[(Math.random()*a.length)|0];
+const pick = a => a[(Math.random()*a.length)|0];
+const sleep = ms => new Promise(r => setTimeout(r, ms));
 
-let actx=null;
-function beep(f=440,d=.09,v=.15){
+// ---------- 소리 ----------
+let actx = null;
+function beep(f=440, d=.09, v=.15){
   if(!sfx.checked) return;
   try{
-    actx=actx||new (window.AudioContext||window.webkitAudioContext)();
-    if(actx.state==='suspended') actx.resume();
-    const o=actx.createOscillator(), g=actx.createGain();
+    actx = actx || new (window.AudioContext||window.webkitAudioContext)();
+    if(actx.state === 'suspended') actx.resume();
+    const o = actx.createOscillator(), g = actx.createGain();
     o.type='square'; o.frequency.value=f;
-    g.gain.setValueAtTime(v,actx.currentTime);
-    g.gain.exponentialRampToValueAtTime(.001,actx.currentTime+d);
+    g.gain.setValueAtTime(v, actx.currentTime);
+    g.gain.exponentialRampToValueAtTime(.001, actx.currentTime+d);
     o.connect(g).connect(actx.destination); o.start(); o.stop(actx.currentTime+d+.02);
   }catch(e){}
 }
 
-const proc=document.createElement('canvas'); proc.width=CFG.procW; proc.height=CFG.procH;
-const pctx=proc.getContext('2d',{willReadFrequently:true});
-const octx=ovl.getContext('2d');
+// ---------- 카메라 ----------
+const proc = document.createElement('canvas');
+proc.width = CFG.procW; proc.height = CFG.procH;
+const pctx = proc.getContext('2d', {willReadFrequently:true});
+const octx = ovl.getContext('2d');
 
 function camBlocked(reason, detail){
-  hint.innerHTML='<b style="color:#FFD23F">'+reason+'</b><br>'+detail+
-    '<br><br>키보드 모드로 전환했습니다 — <b>← →</b> 키로 고개를 돌리세요.';
+  hint.innerHTML = '<b>'+reason+'</b><br>'+detail+'<br><br>키보드 모드로 전환했습니다 — ← → 키로 고개를 돌리세요.';
   hint.classList.remove('off');
-  kb.checked=true; kb.dispatchEvent(new Event('change'));
+  kb.checked = true; kb.dispatchEvent(new Event('change'));
   talk('카메라가 막혔네. 키보드로 붙자 — ← → 로 고개 돌려.');
   showDiag();
 }
 
 async function startCam(){
-  // 보안 컨텍스트가 아니면 API 자체가 없다 (http:// 로 열었거나 안전하지 않은 출처)
   if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
     camBlocked('이 페이지에는 카메라 API가 없습니다',
       window.isSecureContext
-        ? '브라우저가 카메라 기능을 이 페이지에 허용하지 않았습니다. 파일을 내려받아 <b>localhost</b> 에서 직접 열면 동작합니다.'
-        : '카메라는 <b>https</b> 또는 <b>localhost</b> 에서만 열립니다. 지금 주소는 <b>'+location.protocol+'</b> 입니다.');
+        ? '브라우저가 이 페이지에 카메라 기능을 허용하지 않았습니다.'
+        : '카메라는 https 또는 localhost 에서만 열립니다. 지금 주소는 ' + location.protocol + ' 입니다.');
     return;
   }
   try{
-    const st=await navigator.mediaDevices.getUserMedia({video:{width:{ideal:640},height:{ideal:480},facingMode:'user'},audio:false});
-    video.srcObject=st; await video.play();
-    hint.classList.add('off'); btnCam.disabled=true; btnCalib.disabled=false;
-    setCall('정면을 보고 “얼굴 정렬”을 누르세요');
-    S.run=true; loop();
+    const st = await navigator.mediaDevices.getUserMedia({
+      video:{ width:{ideal:640}, height:{ideal:480}, facingMode:'user' }, audio:false
+    });
+    video.srcObject = st;
+    await video.play();
+    hint.classList.add('off');
+    btnCam.disabled = true; btnCalib.disabled = false;
+    setCall('“고개 인식 학습”을 눌러 세 자세를 가르쳐 주세요');
+    talk('먼저 네 고개 움직임을 배울게.');
+    S.run = true; loop();
   }catch(err){
-    const why={
-      NotAllowedError: window.top!==window.self
+    const why = {
+      NotAllowedError: window.top !== window.self
         ? '이 페이지가 다른 사이트 안에 삽입되어 있어 카메라 권한이 차단되었습니다. 파일을 내려받아 localhost 에서 열어주세요.'
-        : '카메라 권한이 거부되었습니다. 주소창 왼쪽 자물쇠 아이콘 → 카메라 → 허용으로 바꾼 뒤 새로고침하세요.',
+        : '카메라 권한이 거부되었습니다. 주소창 왼쪽 자물쇠 → 카메라 → 허용으로 바꾼 뒤 새로고침하세요.',
       NotFoundError:'연결된 카메라를 찾지 못했습니다.',
       NotReadableError:'다른 앱(줌, 팀즈, 카메라 앱 등)이 카메라를 쓰고 있습니다. 그 앱을 끄고 다시 시도하세요.',
       OverconstrainedError:'요청한 해상도를 지원하지 않는 카메라입니다.',
@@ -286,197 +366,293 @@ async function startCam(){
 }
 
 async function showDiag(){
-  const d=$('diag'); d.hidden=false;
+  const d = $('diag'); d.hidden = false;
   let perm='확인 불가', cams='확인 불가';
-  try{ perm=(await navigator.permissions.query({name:'camera'})).state; }catch(e){}
+  try{ perm = (await navigator.permissions.query({name:'camera'})).state; }catch(e){}
   try{
-    const list=await navigator.mediaDevices.enumerateDevices();
-    cams=list.filter(v=>v.kind==='videoinput').length+'개';
+    const list = await navigator.mediaDevices.enumerateDevices();
+    cams = list.filter(v => v.kind === 'videoinput').length + '개';
   }catch(e){}
-  d.innerHTML=[
+  d.innerHTML = [
     '<b>카메라 진단</b>',
-    '주소            '+location.protocol+'//'+location.host,
-    '보안 컨텍스트    '+(window.isSecureContext?'예 (카메라 가능)':'아니오 (카메라 불가 — https/localhost 필요)'),
-    '다른 페이지 안   '+(window.top!==window.self?'예 (iframe — 권한이 막힐 수 있음)':'아니오'),
-    'mediaDevices    '+(navigator.mediaDevices?'있음':'없음'),
-    '카메라 권한      '+perm,
-    '카메라 장치      '+cams
+    '주소            ' + location.protocol + '//' + location.host,
+    '보안 컨텍스트    ' + (window.isSecureContext ? '예 (카메라 가능)' : '아니오 (https/localhost 필요)'),
+    '다른 페이지 안   ' + (window.top !== window.self ? '예 (iframe — 권한이 막힐 수 있음)' : '아니오'),
+    'mediaDevices    ' + (navigator.mediaDevices ? '있음' : '없음'),
+    '카메라 권한      ' + perm,
+    '카메라 장치      ' + cams
   ].join('\n');
 }
-$('btnDiag').addEventListener('click',showDiag);
 
+// ---------- 프레임 분석 ----------
 function analyze(){
-  pctx.save(); pctx.translate(CFG.procW,0); pctx.scale(-1,1);
-  pctx.drawImage(video,0,0,CFG.procW,CFG.procH); pctx.restore();
-  const d=pctx.getImageData(0,0,CFG.procW,CFG.procH).data;
-  let sx=0,sy=0,n=0;
-  for(let y=0;y<CFG.procH;y+=2){
-    for(let x=0;x<CFG.procW;x+=2){
+  pctx.save();
+  pctx.translate(CFG.procW, 0); pctx.scale(-1, 1);
+  pctx.drawImage(video, 0, 0, CFG.procW, CFG.procH);
+  pctx.restore();
+
+  const d = pctx.getImageData(0, 0, CFG.procW, CFG.procH).data;
+  let sx=0, sy=0, n=0;
+  for(let y=0; y<CFG.procH; y+=2){
+    for(let x=0; x<CFG.procW; x+=2){
       const i=(y*CFG.procW+x)*4, r=d[i], g=d[i+1], b=d[i+2];
-      const Y=.299*r+.587*g+.114*b, Cb=128-.168736*r-.331264*g+.5*b, Cr=128+.5*r-.418688*g-.081312*b;
-      if(Y>55&&Cb>=77&&Cb<=130&&Cr>=132&&Cr<=178&&r>g&&r>b){
-        const w=y<CFG.procH*.7?1:.35; sx+=x*w; sy+=y*w; n+=w;
+      const Y  = .299*r + .587*g + .114*b;
+      const Cb = 128 - .168736*r - .331264*g + .5*b;
+      const Cr = 128 + .5*r - .418688*g - .081312*b;
+      // 조명/화이트밸런스 편차를 견디도록 넉넉하게 잡는다
+      if(Y>40 && Cb>=70 && Cb<=135 && Cr>=130 && Cr<=185 && r>g && r>b){
+        const w = y < CFG.procH*.72 ? 1 : .3;   // 얼굴이 있는 위쪽에 가중
+        sx += x*w; sy += y*w; n += w;
       }
     }
   }
-  return n<CFG.minSkin/2?null:{x:sx/n,y:sy/n};
+  return n < CFG.minSkin ? null : { x:sx/n, y:sy/n, n };
 }
-const med=a=>{const s=a.slice().sort((p,q)=>p-q); return s[(s.length/2)|0];};
+const median = a => { const s=a.slice().sort((p,q)=>p-q); return s[(s.length/2)|0]; };
+
+// ---------- 학습된 기준값으로 방향 판정 ----------
+function classify(x){
+  const c = S.cal; if(!c) return 'center';
+  const t = sens.value/100;                       // 0.25 ~ 0.80
+  const rl = (x - c.center) / (c.left  - c.center);   // 왼쪽 기준 대비 진행률
+  const rr = (x - c.center) / (c.right - c.center);
+  if(rl >= t && rl >= rr) return 'left';
+  if(rr >= t) return 'right';
+  return 'center';
+}
 
 function loop(){
   if(!S.run) return;
-  const f=analyze();
+  const f = analyze();
   if(f){
-    S.samples.push(f.x); if(S.samples.length>CFG.smooth) S.samples.shift();
-    const mx=med(S.samples);
-    if(S.cal&&!kb.checked){
-      const t=Math.max(CFG.procW*CFG.thr,S.spread*2.2), dx=mx-S.baseX;
-      S.dir=dx>t?'right':dx<-t?'left':'center';
-    }
-    draw(mx,f.y);
+    S.samples.push(f.x);
+    if(S.samples.length > CFG.smooth) S.samples.shift();
+    const mx = median(S.samples);
+    if(!kb.checked && S.cal) S.dir = classify(mx);
+    drawOverlay(mx, f.y);
+    drawMeter(mx);
+    if(!S.cal && !kb.checked) badge.textContent = '얼굴 인식됨 · 학습 필요';
   }else{
-    if(!kb.checked) S.dir='none';
-    octx.clearRect(0,0,ovl.width,ovl.height);
+    S.samples.length = 0;
+    if(!kb.checked){ S.dir = 'none'; octx.clearRect(0,0,ovl.width,ovl.height); }
   }
-  paintBadge(); requestAnimationFrame(loop);
+  if(S.cal || kb.checked) paintBadge();
+  requestAnimationFrame(loop);
 }
-function draw(mx,my){
-  if(ovl.width!==ovl.clientWidth){ovl.width=ovl.clientWidth; ovl.height=ovl.clientHeight;}
-  const W=ovl.width,H=ovl.height, px=mx/CFG.procW*W, py=my/CFG.procH*H;
+
+function drawOverlay(mx, my){
+  if(ovl.width !== ovl.clientWidth){ ovl.width = ovl.clientWidth; ovl.height = ovl.clientHeight; }
+  const W=ovl.width, H=ovl.height, px=mx/CFG.procW*W, py=my/CFG.procH*H;
   octx.clearRect(0,0,W,H);
   octx.strokeStyle='#FFD23F'; octx.lineWidth=2;
-  octx.beginPath(); octx.arc(px,py,17,0,Math.PI*2); octx.stroke();
-  if(S.cal&&S.baseX!=null){
-    const bx=S.baseX/CFG.procW*W, t=Math.max(CFG.procW*CFG.thr,S.spread*2.2)/CFG.procW*W;
-    octx.strokeStyle='rgba(243,238,221,.22)'; octx.lineWidth=1; octx.setLineDash([6,6]);
-    [bx-t,bx+t].forEach(x=>{octx.beginPath(); octx.moveTo(x,0); octx.lineTo(x,H); octx.stroke();});
-    octx.setLineDash([]);
+  octx.beginPath(); octx.arc(px, py, 17, 0, Math.PI*2); octx.stroke();
+}
+
+// 게이지는 항상 왼쪽 마크가 화면 왼쪽에 오도록 축 방향을 맞춘다
+function meterScale(){
+  const c = S.cal;
+  const lo = Math.min(c.left, c.right, c.center), hi = Math.max(c.left, c.right, c.center);
+  const pad = (hi-lo)*0.5 + 2;
+  const flip = c.left > c.right;
+  return v => {
+    let t = (v - (lo-pad)) / ((hi+pad) - (lo-pad)) * 100;
+    if(flip) t = 100 - t;
+    return Math.max(0, Math.min(100, t));
+  };
+}
+function drawMeter(mx){
+  if(!S.cal) return;
+  needle.style.left = meterScale()(mx) + '%';
+}
+function placeMarks(){
+  if(!S.cal) return;
+  meter.hidden = false;
+  const pos = meterScale();
+  mkLeft.style.left = pos(S.cal.left) + '%';
+  mkCenter.style.left = pos(S.cal.center) + '%';
+  mkRight.style.left = pos(S.cal.right) + '%';
+}
+
+const KO = { left:'◀ 왼쪽', right:'오른쪽 ▶', center:'가운데', none:'얼굴 미인식' };
+const paintBadge = () => { badge.textContent = KO[S.dir] || '— — —'; };
+
+// ---------- 3단계 학습 ----------
+async function measure(label, sub){
+  cue.hidden = false;
+  for(let t=3; t>0; t--){
+    cue.innerHTML = label + ' <b>' + t + '</b>';
+    setCall(sub);
+    beep(420, .05);
+    await sleep(800);
+  }
+  cue.textContent = label + ' — 측정 중';
+  const vals = [];
+  const t0 = performance.now();
+  while(performance.now() - t0 < 1100){
+    const f = analyze(); if(f) vals.push(f.x);
+    await sleep(45);
+  }
+  beep(900, .1);
+  if(vals.length < 6) throw new Error('얼굴을 인식하지 못했습니다. 조명을 얼굴 정면으로 밝히고 다시 시도하세요.');
+  return median(vals);
+}
+
+async function calibrate(){
+  if(kb.checked){ btnStart.disabled = false; setCall('키보드 모드 — ← → 로 고개를 돌리세요'); return; }
+  if(S.busy) return;
+  S.busy = true; btnCalib.disabled = true; btnStart.disabled = true;
+  S.cal = null; meter.hidden = true;
+  try{
+    const center = await measure('정면을 보세요', '① 정면 — 카메라를 똑바로');
+    const left   = await measure('고개를 왼쪽으로', '② 왼쪽 — 게임에서 할 동작 그대로 크게');
+    const right  = await measure('고개를 오른쪽으로', '③ 오른쪽 — 게임에서 할 동작 그대로 크게');
+
+    if(Math.abs(left - right) < CFG.minSpread)
+      throw new Error('좌우 차이가 너무 작습니다 (' + Math.abs(left-right).toFixed(1) + 'px). 고개를 더 크게 돌리고 다시 학습하세요.');
+    if((left - center) * (right - center) >= 0)
+      throw new Error('왼쪽과 오른쪽이 같은 방향으로 측정됐습니다. 정면 자세를 유지한 채 다시 학습하세요.');
+
+    S.cal = { center, left, right };
+    placeMarks();
+    btnStart.disabled = false;
+    setCall('학습 완료 — 고개를 돌려 게이지가 따라오는지 확인하세요');
+    talk('배웠어. 이제 네 고개가 어디로 가는지 보여.');
+    beep(1180, .16);
+  }catch(err){
+    setCall('학습 실패');
+    talk(err.message);
+    badge.textContent = '학습 필요';
+  }finally{
+    cue.hidden = true;
+    btnCalib.disabled = false;
+    btnCalib.textContent = '고개 인식 다시 학습';
+    S.busy = false;
   }
 }
-const KO={left:'◀ 왼쪽',right:'오른쪽 ▶',center:'가운데',none:'얼굴 미인식'};
-const paintBadge=()=>{badge.textContent=KO[S.dir]||'— — —';};
 
-function calibrate(){
-  if(kb.checked){S.cal=true; btnStart.disabled=false; setCall('키보드 모드 준비 완료'); return;}
-  S.cal=false; btnCalib.disabled=true;
-  const xs=[]; let t=3;
-  const iv=setInterval(()=>{
-    const f=analyze(); if(f) xs.push(f.x);
-    t-=.1;
-    if(t>0){setCall('정면을 보세요… '+t.toFixed(1)); return;}
-    clearInterval(iv); btnCalib.disabled=false;
-    if(xs.length<8){setCall('얼굴 인식 실패 — 조명을 밝히거나 키보드 모드로'); return;}
-    S.baseX=xs.reduce((a,b)=>a+b,0)/xs.length;
-    S.spread=Math.sqrt(xs.reduce((a,b)=>a+(b-S.baseX)**2,0)/xs.length);
-    S.cal=true; btnStart.disabled=false; beep(880,.12);
-    setCall('정렬 완료 — 고개를 돌려 배지를 확인하고 시작하세요');
-    talk('네 정면 위치 외웠어.');
-  },100);
-}
-
+// ---------- Claude AI (1차 마르코프 예측) ----------
 function choose(){
-  const h=S.hist;
-  if(h.length>=3&&Math.random()>.22){
-    const last=h[h.length-1]; let L=0,R=0;
-    for(let i=0;i<h.length-1;i++) if(h[i]===last) h[i+1]==='left'?L++:R++;
-    if(L!==R) return L>R?'left':'right';
-    const tl=h.filter(v=>v==='left').length;
-    if(tl*2!==h.length) return tl*2>h.length?'left':'right';
+  const h = S.hist;
+  if(h.length >= 3 && Math.random() > .22){
+    const last = h[h.length-1];
+    let L=0, R=0;
+    for(let i=0; i<h.length-1; i++) if(h[i] === last) h[i+1]==='left' ? L++ : R++;
+    if(L !== R) return L > R ? 'left' : 'right';
+    const tl = h.filter(v => v==='left').length;
+    if(tl*2 !== h.length) return tl*2 > h.length ? 'left' : 'right';
   }
-  return Math.random()<.5?'left':'right';
+  return Math.random() < .5 ? 'left' : 'right';
 }
 
-const later=(fn,ms)=>S.timers.push(setTimeout(fn,ms));
-const clearAll=()=>{S.timers.forEach(clearTimeout); S.timers=[];};
+// ---------- 라운드 ----------
+const later = (fn, ms) => S.timers.push(setTimeout(fn, ms));
+const clearAll = () => { S.timers.forEach(clearTimeout); S.timers = []; };
 
 function start(){
   clearAll();
-  Object.assign(S,{round:0,wins:0,streak:0,lives:CFG.lives,caught:0,hist:[]});
-  render(); btnStart.disabled=true; next();
+  Object.assign(S, {round:0, wins:0, streak:0, lives:CFG.lives, caught:0, hist:[]});
+  render(); btnStart.disabled = true; next();
 }
 function next(){
-  if(S.lives<=0) return;
-  S.round++; render(); reset();
+  if(S.lives <= 0) return;
+  S.round++; render(); resetVisuals();
   talk(pick(LINES.ready)); setCall('준비…');
-  later(()=>runBeat(0,Math.max(CFG.beatMin,CFG.beat0-(S.round-1)*CFG.beatStep)),700);
+  later(() => runBeat(0, Math.max(CFG.beatMin, CFG.beat0 - (S.round-1)*CFG.beatStep)), 700);
 }
-function runBeat(i,gap){
-  if(i<2){
-    beats[i].classList.add('on'); beep(520+i*80,.07); setCall('참'.repeat(i+1));
-    later(()=>beats[i].classList.remove('on'),gap*.6);
-    later(()=>runBeat(i+1,gap),gap);
+function runBeat(i, gap){
+  if(i < 2){
+    beats[i].classList.add('on'); beep(520+i*80, .07); setCall('참'.repeat(i+1));
+    later(() => beats[i].classList.remove('on'), gap*.6);
+    later(() => runBeat(i+1, gap), gap);
   }else{
-    S.locked=S.dir;
-    const atk=choose();
-    beats[2].classList.add('hit'); beep(760,.16,.2);
-    hand.classList.add('point'); hand.classList.toggle('left',atk==='left');
+    S.locked = S.dir;                       // 공개 전에 먼저 고정 — 보고 피할 수 없다
+    const atk = choose();
+    beats[2].classList.add('hit'); beep(760, .16, .2);
+    hand.classList.add('point'); hand.classList.toggle('left', atk === 'left');
     setCall('참!');
-    later(()=>judge(atk),260);
+    later(() => judge(atk), 260);
   }
 }
 function judge(atk){
-  const me=S.locked;
-  if(me!=='left'&&me!=='right'){
-    setCall('무효 — 고개를 돌리지 않았습니다'); talk(pick(LINES.none));
-    later(()=>{S.round--; next();},CFG.hold); return;
+  const me = S.locked;
+  if(me !== 'left' && me !== 'right'){
+    setCall(me === 'none' ? '무효 — 얼굴이 보이지 않았습니다' : '무효 — 고개를 돌리지 않았습니다');
+    talk(pick(LINES.none));
+    later(() => { S.round--; next(); }, CFG.hold);
+    return;
   }
-  S.hist.push(me); if(S.hist.length>40) S.hist.shift();
-  if(me===atk){
-    S.lives--; S.caught++; S.streak=0;
+  S.hist.push(me); if(S.hist.length > 40) S.hist.shift();
+  if(me === atk){
+    S.lives--; S.caught++; S.streak = 0;
     face.classList.add('win','shake'); pMe.classList.add('caught'); pClaude.classList.add('dodged');
-    setCall(`걸렸다! Claude ${KO[atk]} · 나 ${KO[me]}`,'caught'); talk(pick(LINES.win)); beep(180,.3,.2);
+    setCall(`걸렸다! Claude ${KO[atk]} · 나 ${KO[me]}`, 'caught');
+    talk(pick(LINES.win)); beep(180, .3, .2);
   }else{
-    S.wins++; S.streak++; S.best=Math.max(S.best,S.streak);
+    S.wins++; S.streak++; S.best = Math.max(S.best, S.streak);
     face.classList.add('lose'); pMe.classList.add('dodged'); pClaude.classList.add('caught');
-    setCall(`성공! Claude ${KO[atk]} · 나 ${KO[me]}`,'dodged'); talk(pick(LINES.lose));
-    beep(980,.12); later(()=>beep(1240,.14),110);
+    setCall(`성공! Claude ${KO[atk]} · 나 ${KO[me]}`, 'dodged');
+    talk(pick(LINES.lose)); beep(980, .12); later(() => beep(1240, .14), 110);
   }
   render();
-  later(()=>{S.lives<=0?over():next();},CFG.hold);
+  later(() => { S.lives <= 0 ? over() : next(); }, CFG.hold);
 }
 function over(){
   face.classList.add('win');
-  setCall(`게임 오버 — 성공 ${S.wins}회 · 최고 연속 ${S.best}회`,'caught');
-  talk(pick(S.wins>=8?LINES.overLose:LINES.overWin));
-  btnStart.disabled=false; btnStart.textContent='다시 시작';
+  setCall(`게임 오버 — 성공 ${S.wins}회 · 최고 연속 ${S.best}회`, 'caught');
+  talk(pick(S.wins >= 8 ? LINES.overLose : LINES.overWin));
+  btnStart.disabled = false; btnStart.textContent = '다시 시작';
 }
-function reset(){
-  beats.forEach(b=>b.classList.remove('on','hit'));
+function resetVisuals(){
+  beats.forEach(b => b.classList.remove('on','hit'));
   hand.classList.remove('point','left');
   face.classList.remove('win','lose','shake');
   pMe.classList.remove('caught','dodged'); pClaude.classList.remove('caught','dodged');
 }
-function setCall(t,cls=''){call.textContent=t; call.className='call '+cls;}
-function talk(t){talkBox.textContent=t;}
+function setCall(t, cls=''){ call.textContent = t; call.className = 'call ' + cls; }
+function talk(t){ talkBox.textContent = t; }
 function render(){
-  sRound.textContent=S.round; sWin.textContent=S.wins;
-  sStreak.textContent=S.streak; sBest.textContent=S.best;
-  lifebar.textContent='목숨 '+('❤︎'.repeat(Math.max(0,S.lives))||'없음')+'   ·   Claude 획득 '+S.caught;
+  sRound.textContent = S.round; sWin.textContent = S.wins;
+  sStreak.textContent = S.streak; sBest.textContent = S.best;
+  lifebar.textContent = '목숨 ' + ('❤︎'.repeat(Math.max(0,S.lives)) || '없음') + '   ·   Claude 획득 ' + S.caught;
 }
 
-let kbT=null;
-addEventListener('keydown',e=>{
+// ---------- 입력 ----------
+let kbT = null;
+addEventListener('keydown', e => {
   if(!kb.checked) return;
-  if(e.key==='ArrowLeft') S.dir='left';
-  else if(e.key==='ArrowRight') S.dir='right';
+  if(e.key === 'ArrowLeft') S.dir = 'left';
+  else if(e.key === 'ArrowRight') S.dir = 'right';
   else return;
   e.preventDefault(); paintBadge();
-  clearTimeout(kbT); kbT=setTimeout(()=>{S.dir='center'; paintBadge();},900);
+  clearTimeout(kbT);
+  kbT = setTimeout(() => { S.dir = 'center'; paintBadge(); }, 900);
 });
-kb.addEventListener('change',()=>{
-  if(kb.checked){S.cal=true; btnStart.disabled=false; S.dir='center'; setCall('키보드 모드 — ← → 로 고개를 돌리세요');}
-  else{S.dir='none'; if(S.baseX==null){S.cal=false; btnStart.disabled=true; setCall('웹캠 정렬이 필요합니다');}}
+kb.addEventListener('change', () => {
+  if(kb.checked){
+    btnStart.disabled = false; S.dir = 'center';
+    setCall('키보드 모드 — ← → 로 고개를 돌리세요');
+  }else{
+    S.dir = 'none';
+    if(!S.cal){ btnStart.disabled = true; setCall('고개 인식 학습이 필요합니다'); }
+  }
   paintBadge();
 });
-btnCam.addEventListener('click',startCam);
-btnCalib.addEventListener('click',calibrate);
-btnStart.addEventListener('click',start);
-btnReset.addEventListener('click',()=>{
-  clearAll(); reset();
-  Object.assign(S,{round:0,wins:0,streak:0,lives:CFG.lives,caught:0,hist:[]});
-  render(); btnStart.textContent='게임 시작'; btnStart.disabled=!S.cal;
+sens.addEventListener('input', () => {
+  const v = +sens.value;
+  sensOut.textContent = v <= 35 ? '예민' : v <= 55 ? '보통' : v <= 68 ? '둔감' : '많이 둔감';
+});
+btnCam.addEventListener('click', startCam);
+btnCalib.addEventListener('click', calibrate);
+btnStart.addEventListener('click', start);
+btnDiag.addEventListener('click', showDiag);
+btnReset.addEventListener('click', () => {
+  clearAll(); resetVisuals();
+  Object.assign(S, {round:0, wins:0, streak:0, lives:CFG.lives, caught:0, hist:[]});
+  render(); btnStart.textContent = '게임 시작'; btnStart.disabled = !(S.cal || kb.checked);
   setCall('리셋 완료'); talk('언제든 다시 붙자.');
 });
+
 render();
+sens.dispatchEvent(new Event('input'));
 })();
 </script>
