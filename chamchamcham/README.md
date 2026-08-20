@@ -38,3 +38,7 @@ python3 -m http.server 8080
 | `index.html` | 화면 구성 |
 | `style.css` | 다크 테마 스타일 |
 | `game.js` | 웹캠 인식 · 라운드 진행 · AI · 점수 |
+
+## 단일 파일 버전
+
+`chamchamcham/standalone.html` 은 HTML/CSS/JS를 한 파일에 담은 버전입니다. 서버 없이 파일을 브라우저로 바로 열어도 되지만, `file://` 에서는 브라우저가 카메라를 막을 수 있어 `localhost` 서버 실행을 권합니다.
