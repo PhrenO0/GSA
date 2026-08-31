@@ -1,0 +1,701 @@
+<title>AI 콘텐츠 레퍼런스 콘택트시트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@700;800;900&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+
+<style>
+/* ── tokens ─────────────────────────────────────────────── */
+:root{
+  --bg:#E9ECEE;
+  --surface:#FDFDFD;
+  --surface-2:#F1F3F5;
+  --ink:#11161A;
+  --ink-2:#3D474F;
+  --muted:#6B7780;
+  --line:#D2D8DC;
+  --line-2:#BFC7CD;
+  --accent:#1F45C4;
+  --accent-ink:#FFFFFF;
+  --shadow:0 1px 0 rgba(17,22,26,.05), 0 8px 24px -18px rgba(17,22,26,.5);
+
+  --pf-youtube:#AE1226;
+  --pf-instagram:#7E2472;
+  --pf-threads:#1B2026;
+  --pf-letter:#7A5210;
+
+  --display:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --body:"IBM Plex Sans KR","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --mono:"IBM Plex Mono","SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0D1013;
+    --surface:#161A1E;
+    --surface-2:#1C2126;
+    --ink:#E9ECEE;
+    --ink-2:#B6BFC6;
+    --muted:#8894A0;
+    --line:#252B31;
+    --line-2:#333B43;
+    --accent:#7C9CFF;
+    --accent-ink:#0D1013;
+    --shadow:0 1px 0 rgba(0,0,0,.4), 0 10px 28px -20px #000;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0D1013;
+  --surface:#161A1E;
+  --surface-2:#1C2126;
+  --ink:#E9ECEE;
+  --ink-2:#B6BFC6;
+  --muted:#8894A0;
+  --line:#252B31;
+  --line-2:#333B43;
+  --accent:#7C9CFF;
+  --accent-ink:#0D1013;
+  --shadow:0 1px 0 rgba(0,0,0,.4), 0 10px 28px -20px #000;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--bg); color:var(--ink);
+  font-family:var(--body); font-size:14px; line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  padding-bottom:120px;
+}
+a{color:inherit}
+
+/* ── header ─────────────────────────────────────────────── */
+.masthead{
+  border-bottom:1px solid var(--line);
+  background:var(--surface);
+  padding:26px 24px 0;
+}
+.masthead-in{max-width:1560px;margin:0 auto}
+.eyebrow{
+  font-family:var(--mono); font-size:10.5px; font-weight:500;
+  letter-spacing:.16em; text-transform:uppercase; color:var(--muted);
+  display:flex; gap:14px; flex-wrap:wrap; align-items:baseline;
+}
+.eyebrow b{color:var(--accent);font-weight:600}
+h1{
+  font-family:var(--display); font-weight:900; font-size:clamp(28px,3.4vw,44px);
+  letter-spacing:-.02em; line-height:1.08; margin:12px 0 0; text-wrap:balance;
+}
+.lede{
+  max-width:60ch; color:var(--ink-2); margin:10px 0 0; font-size:14.5px;
+}
+.counts{
+  display:flex; gap:0; flex-wrap:wrap; margin:22px 0 0;
+  border-top:1px solid var(--line);
+}
+.count{
+  padding:12px 22px 14px 0; margin-right:22px;
+  border-right:1px solid var(--line); flex:0 0 auto;
+}
+.count:last-child{border-right:0}
+.count .n{
+  font-family:var(--mono); font-variant-numeric:tabular-nums;
+  font-size:22px; font-weight:600; letter-spacing:-.02em; display:block;
+}
+.count .l{font-size:11.5px;color:var(--muted)}
+
+/* ── filter bar ─────────────────────────────────────────── */
+.toolbar{
+  position:sticky; top:0; z-index:30;
+  background:color-mix(in srgb, var(--surface) 88%, transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
+  padding:10px 24px;
+}
+.toolbar-in{
+  max-width:1560px;margin:0 auto;
+  display:flex;gap:8px;align-items:center;flex-wrap:wrap;
+}
+.tb-label{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--muted);margin-right:4px;
+}
+.chip{
+  font:inherit; font-size:12.5px; font-weight:500;
+  padding:5px 12px; border-radius:2px; cursor:pointer;
+  background:var(--surface-2); color:var(--ink-2);
+  border:1px solid var(--line);
+  display:inline-flex; align-items:center; gap:7px;
+}
+.chip .dot{width:7px;height:7px;border-radius:50%;background:currentColor;opacity:.75}
+.chip .k{font-family:var(--mono);font-size:10.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.chip:hover{border-color:var(--line-2)}
+.chip[aria-pressed="true"]{
+  background:var(--ink); color:var(--bg); border-color:var(--ink);
+}
+.chip[aria-pressed="true"] .k{color:var(--bg);opacity:.6}
+.chip:focus-visible,.card:focus-visible,.closer:focus-visible{
+  outline:2px solid var(--accent); outline-offset:2px;
+}
+
+/* ── sheet ──────────────────────────────────────────────── */
+main{max-width:1560px;margin:0 auto;padding:0 24px}
+
+section.block{margin:38px 0 0}
+section.block[hidden]{display:none}
+.block-head{
+  display:flex;align-items:baseline;gap:12px;
+  border-bottom:1.5px solid var(--ink); padding-bottom:7px; margin-bottom:16px;
+}
+.block-head .idx{
+  font-family:var(--mono);font-size:11px;font-weight:600;color:var(--pc);
+  letter-spacing:.05em;
+}
+.block-head h2{
+  font-family:var(--display);font-weight:800;font-size:17px;
+  letter-spacing:-.01em;margin:0;
+}
+.block-head .sub{font-size:12px;color:var(--muted);margin-left:auto;text-align:right}
+
+.scroller{overflow-x:auto;padding-bottom:6px}
+.sheet{
+  display:grid; grid-template-columns:repeat(7,minmax(0,1fr));
+  gap:20px 12px; min-width:1092px;
+}
+
+/* ── card ───────────────────────────────────────────────── */
+.card{
+  display:flex;flex-direction:column;gap:8px;
+  background:none;border:0;padding:0;margin:0;
+  font:inherit;color:inherit;text-align:left;cursor:pointer;
+}
+.card[hidden]{display:none}
+.frame{
+  position:relative; aspect-ratio:16/9; border-radius:2px; overflow:hidden;
+  background:linear-gradient(158deg,
+    color-mix(in oklab, var(--pc), #fff calc(var(--lift) * 1%)),
+    color-mix(in oklab, var(--pc), #000 calc(18% + var(--lift) * 1%)));
+  box-shadow:var(--shadow);
+  display:flex;flex-direction:column;justify-content:flex-end;
+  padding:9px 10px 10px;
+  transition:transform .16s ease, box-shadow .16s ease;
+}
+.card:hover .frame{transform:translateY(-2px)}
+.card[aria-expanded="true"] .frame{
+  outline:2px solid var(--ink); outline-offset:2px;
+}
+.frame::after{
+  content:"";position:absolute;inset:0;
+  background:radial-gradient(120% 80% at 85% 8%, rgba(255,255,255,.16), transparent 60%);
+  pointer-events:none;
+}
+.frame .no{
+  position:absolute;top:8px;left:10px;
+  font-family:var(--mono);font-size:9.5px;font-weight:500;
+  color:rgba(255,255,255,.62);letter-spacing:.08em;
+}
+.frame .pf{
+  position:absolute;top:7px;right:9px;
+  font-family:var(--mono);font-size:9px;font-weight:600;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.9);
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:2px;padding:1.5px 5px;
+}
+.frame .hook{
+  font-family:var(--display);font-weight:900;
+  font-size:clamp(13px,1.05vw,17px);line-height:1.14;letter-spacing:-.025em;
+  color:#fff;text-wrap:balance;
+  position:relative;z-index:1;
+  text-shadow:0 1px 12px rgba(0,0,0,.35);
+}
+.frame .kind{
+  font-family:var(--mono);font-size:9px;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.7);margin-bottom:5px;position:relative;z-index:1;
+}
+.meta{display:flex;flex-direction:column;gap:2px;padding:0 1px}
+.meta .nm{font-size:12.5px;font-weight:600;line-height:1.3;letter-spacing:-.01em}
+.meta .hd{
+  font-family:var(--mono);font-size:10px;color:var(--muted);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.meta .fw{
+  font-family:var(--mono);font-size:10px;font-weight:500;color:var(--ink-2);
+  font-variant-numeric:tabular-nums;
+}
+
+/* ── loupe / detail ─────────────────────────────────────── */
+.loupe{
+  position:fixed;left:0;right:0;bottom:0;z-index:40;
+  background:var(--surface);border-top:1.5px solid var(--ink);
+  box-shadow:0 -14px 40px -28px rgba(0,0,0,.7);
+  transform:translateY(101%);transition:transform .22s cubic-bezier(.2,.7,.3,1);
+}
+.loupe.open{transform:translateY(0)}
+.loupe-in{
+  max-width:1560px;margin:0 auto;padding:16px 24px 20px;
+  display:grid;grid-template-columns:150px minmax(0,1fr) minmax(0,1fr) auto;
+  gap:22px;align-items:start;
+}
+.loupe .chipframe{
+  aspect-ratio:16/9;border-radius:2px;
+  background:linear-gradient(158deg,
+    color-mix(in oklab, var(--pc), #fff calc(var(--lift) * 1%)),
+    color-mix(in oklab, var(--pc), #000 calc(18% + var(--lift) * 1%)));
+  display:flex;align-items:flex-end;padding:8px 9px;
+}
+.loupe .chipframe span{
+  font-family:var(--display);font-weight:900;font-size:14px;line-height:1.12;
+  color:#fff;letter-spacing:-.02em;
+}
+.lp-h{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.lp-h h3{font-family:var(--display);font-weight:800;font-size:19px;margin:0;letter-spacing:-.015em}
+.lp-h .tag{
+  font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--pc);border:1px solid var(--pc);border-radius:2px;padding:1px 5px;
+}
+:root[data-theme="dark"] .lp-h .tag,
+:root:not([data-theme="light"]) .lp-h .tag{filter:brightness(1.7)}
+.lp-sub{font-family:var(--mono);font-size:11px;color:var(--muted);margin-top:3px}
+.lp-body{font-size:13.5px;color:var(--ink-2);margin-top:8px;max-width:62ch}
+.lp-col h4{
+  font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--muted);margin:0 0 6px;font-weight:500;
+}
+.lp-col ul{margin:0;padding-left:16px;font-size:13px;color:var(--ink-2)}
+.lp-col li{margin-bottom:4px}
+.lp-actions{display:flex;flex-direction:column;gap:8px;align-items:flex-end}
+.visit{
+  font-family:var(--mono);font-size:11px;font-weight:600;letter-spacing:.06em;
+  text-transform:uppercase;text-decoration:none;
+  background:var(--ink);color:var(--bg);padding:8px 14px;border-radius:2px;
+  white-space:nowrap;
+}
+.visit:hover{background:var(--accent);color:var(--accent-ink)}
+.closer{
+  font:inherit;font-family:var(--mono);font-size:11px;color:var(--muted);
+  background:none;border:1px solid var(--line);border-radius:2px;
+  padding:6px 12px;cursor:pointer;
+}
+.closer:hover{color:var(--ink);border-color:var(--line-2)}
+
+/* ── footer ─────────────────────────────────────────────── */
+footer{
+  max-width:1560px;margin:52px auto 0;padding:20px 24px 40px;
+  border-top:1px solid var(--line);
+  font-size:12px;color:var(--muted);
+}
+footer p{margin:0 0 8px;max-width:76ch}
+footer a{color:var(--accent);text-decoration:none;border-bottom:1px solid color-mix(in srgb,var(--accent) 35%,transparent)}
+footer a:hover{border-bottom-color:var(--accent)}
+.srcs{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:10px;font-family:var(--mono);font-size:10.5px}
+
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important;animation:none!important}
+}
+@media (max-width:900px){
+  .loupe-in{grid-template-columns:1fr;gap:14px}
+  .loupe .chipframe{max-width:180px}
+  .lp-actions{flex-direction:row;align-items:center;justify-content:flex-start}
+}
+</style>
+
+<header class="masthead">
+  <div class="masthead-in">
+    <div class="eyebrow">
+      <span>Reference Contact Sheet</span>
+      <span>AI 교양 · 활용법 채널</span>
+      <span><b>7 across</b> · 한 화면 스캔용</span>
+    </div>
+    <h1>AI 콘텐츠 레퍼런스 콘택트시트</h1>
+    <p class="lede">
+      발행 전 “무엇을 어떤 톤으로 말할지” 정하기 위한 벤치마킹 보드.
+      국내 유튜브·인스타·스레드에서 AI 활용법을 파는 계정과, 원리를 설명하는 해외 채널,
+      그리고 매일 소재를 공급받을 뉴스레터를 한 시트에 모았습니다. 카드를 누르면 벤치마킹 포인트가 열립니다.
+    </p>
+    <div class="counts" id="counts"></div>
+  </div>
+</header>
+
+<nav class="toolbar" aria-label="플랫폼 필터">
+  <div class="toolbar-in">
+    <span class="tb-label">Filter</span>
+    <div id="chips" style="display:flex;gap:8px;flex-wrap:wrap"></div>
+  </div>
+</nav>
+
+<main id="sheet"></main>
+
+<aside class="loupe" id="loupe" aria-live="polite" aria-label="선택한 레퍼런스 상세"></aside>
+
+<footer>
+  <p>
+    <strong>수치에 대한 주의:</strong> 국내 채널의 구독자·팔로워 수는 아래 고구마팜 큐레이션 기사 시점 기준이고,
+    해외 채널은 출처에 명시된 값만 적었습니다. 지금 수치와 다를 수 있으니 기획 근거로 쓰기 전 실제 계정에서 확인하세요.
+    링크는 각 계정의 공개 핸들로 연결됩니다.
+  </p>
+  <p>
+    이 시트는 웹 검색과 큐레이션 기사 정독으로 만들었습니다. 인스타그램·스레드의 개별 게시물 성과 데이터는
+    이 환경에서 직접 조회할 수 없어, 계정 단위의 포지션과 콘텐츠 포맷 중심으로 정리했습니다.
+  </p>
+  <div class="srcs">
+    <span>Sources ·</span>
+    <a href="https://gogumafarm.kr/ai-%EB%A7%88%EC%8A%A4%ED%84%B0%ED%95%98%EA%B3%A0-%EC%8B%B6%EC%9D%80-%EC%82%AC%EB%9E%8C-%EC%A3%BC%EB%AA%A9-%EC%97%85%EB%AC%B4%EC%9D%BC%EC%83%81%EC%97%90-%EB%8F%84%EC%9B%80-%EB%90%98%EB%8A%94/">고구마팜 AI 채널 모음</a>
+    <a href="https://www.analyticsvidhya.com/blog/2025/12/best-ai-youtube-channels/">Analytics Vidhya</a>
+    <a href="https://clickstrike.com/blog/best-ai-youtube-channels/">Clickstrike</a>
+    <a href="https://dupple.com/learn/best-ai-newsletters-2026">Dupple Newsletters</a>
+    <a href="https://letter.wepick.kr/post/103">위픽 레터</a>
+  </div>
+</footer>
+
+<script>
+/* ── data ───────────────────────────────────────────────── */
+const PF = {
+  youtube:   {name:"YouTube",   short:"YT", color:"var(--pf-youtube)"},
+  instagram: {name:"Instagram", short:"IG", color:"var(--pf-instagram)"},
+  threads:   {name:"Threads",   short:"TH", color:"var(--pf-threads)"},
+  letter:    {name:"Newsletter",short:"NL", color:"var(--pf-letter)"}
+};
+
+const BLOCKS = [
+  {
+    id:"kr-yt", pf:"youtube", idx:"01",
+    title:"국내 유튜브 — 활용법과 교양의 톤을 잡는 곳",
+    sub:"길이·설명 밀도·자막 톤 벤치마킹",
+    items:[
+      { nm:"알린 ALINN", hd:"@ailifeinnovation", fw:"15.4만", kind:"ChatGPT 심화",
+        url:"https://www.youtube.com/@ailifeinnovation",
+        why:"ChatGPT의 숨은 기능과 프롬프트 엔지니어링을 깊게 파서 시청자에게 ‘교과서’ 소리를 듣는 채널. 활용법 카테고리에서 깊이의 상한선을 확인하기 좋습니다.",
+        steal:["기능 하나를 끝까지 파는 단일 주제 구성","‘아직도 이렇게 쓰세요?’식 격차 제시형 도입","프롬프트를 화면에 그대로 노출해 따라 하게 만들기"] },
+      { nm:"유튜브신쌤", hd:"@유튜브신쌤", fw:"13.2만", kind:"입문 강의",
+        url:"https://www.youtube.com/@유튜브신쌤",
+        why:"AI 입문자를 대상으로 한 기초 강의와 테마별 툴 소개. 영상 제작 쪽 활용법이 중심이고 설명이 친절해서, 초보 타깃 콘텐츠의 말하기 속도를 참고하기 좋습니다.",
+        steal:["‘무엇을 모르는지도 모르는’ 시청자 기준의 용어 풀이","툴을 주제별로 묶는 테마 시리즈 구성","한 편에 한 가지 결과물만 만들게 하는 범위 설정"] },
+      { nm:"일잘러 장피엠", hd:"@jangpm", fw:"10.9만", kind:"실무 자동화",
+        url:"https://www.youtube.com/@jangpm",
+        why:"ChatGPT·노션·엑셀·PPT를 엮은 실무 자동화. 실습자료를 함께 주는 방식이 저장·공유를 유도합니다.",
+        steal:["‘퇴근 30분 당기기’류의 직장인 손익 프레이밍","실습 템플릿 배포로 만드는 저장·구독 전환","도구 이름이 아니라 업무 이름으로 제목 짓기"] },
+      { nm:"AI 알려주는 남자, 데브남", hd:"@AI알려주는남자-데브남", fw:"3.14만", kind:"실무 적용",
+        url:"https://www.youtube.com/@AI알려주는남자-데브남",
+        why:"데이터 수집·PPT·홈페이지 생성 등 결과물이 분명한 실무 활용과, 나만의 맞춤 ChatGPT(‘자비스’)를 만드는 흐름을 보여줍니다.",
+        steal:["‘나만의 비서 만들기’라는 시리즈 서사","완성물을 먼저 보여주고 과정을 역순으로 푸는 구성"] },
+      { nm:"감자나라ai", hd:"@감자나라ai", fw:"4.45만", kind:"툴 비교 리뷰",
+        url:"https://www.youtube.com/@감자나라ai",
+        why:"ChatGPT를 분석하고 다른 AI와 비교하는 리뷰. 일반 사용자 시점을 유지해서 전문가 톤 없이도 신뢰를 만듭니다.",
+        steal:["같은 프롬프트를 여러 모델에 넣는 대조 실험 포맷","전문가가 아니라 사용자 시점으로 결론 내리기"] },
+      { nm:"기묘한 자동화", hd:"@kooky0ai", fw:"4.44만", kind:"수익화·노코드",
+        url:"https://www.youtube.com/@kooky0ai",
+        why:"업무 자동화와 AI 수익화(노코드 웹빌더, 쇼핑몰 대행 등)를 직접 운영해 본 경험으로 풀어냅니다. 돈 이야기가 붙는 순간 조회수 구조가 달라지는 사례.",
+        steal:["‘해봤다’ 1인칭 실험기 형식","수익·비용 숫자를 공개해 만드는 구체성"] },
+      { nm:"시민개발자 구씨", hd:"@citizendev9c", fw:"2.89만", kind:"노코드 자동화",
+        url:"https://www.youtube.com/@citizendev9c",
+        why:"자동화와 노코드, 툴 비교 리뷰 중심. 개발자가 아닌 사람이 도구를 조립하는 관점을 유지합니다.",
+        steal:["‘코딩 없이’ 제약을 콘셉트로 못 박기","툴 조합(스택)을 하나의 콘텐츠 단위로 다루기"] },
+      { nm:"김그륜", hd:"@kimgryun", fw:"10.9만", kind:"영상 생성 AI",
+        url:"https://www.youtube.com/@kimgryun",
+        why:"할리우드 현직 영상 디자이너가 RUNWAY·Sora 같은 영상 AI를 쓰는 과정을 공개. 직업적 권위가 콘텐츠 신뢰를 대신 만들어 주는 구조입니다.",
+        steal:["본업 이력을 콘텐츠 신뢰의 근거로 배치","완성본이 아니라 제작 과정 자체를 콘텐츠로"] },
+      { nm:"행글라이터", hd:"@hangglwriter", fw:"2.12만", kind:"콘텐츠 제작",
+        url:"https://www.youtube.com/@hangglwriter",
+        why:"영상·글쓰기·이미지 제작에 AI를 붙이는 방법. 새 툴을 계속 실사용하고 댓글 질문에 성실히 답해 커뮤니티가 단단합니다.",
+        steal:["댓글 질문을 다음 편 주제로 삼는 순환","신규 툴 출시 → 즉시 실사용 후기 속도전"] },
+      { nm:"평범한 사업가", hd:"@평범한사업가", fw:"3.12만", kind:"해외 뉴스·팟캐스트",
+        url:"https://www.youtube.com/@평범한사업가",
+        why:"해외 AI 뉴스에 자막을 붙이고 1시간대 심층 인터뷰를 올립니다. 숏폼 반대편에서 ‘깊이’ 포지션을 잡은 사례.",
+        steal:["해외 원문 인터뷰를 번역·해설해 국내 격차 메우기","롱폼을 숏폼 소재의 원본 저장고로 쓰기"] },
+      { nm:"필로소피 AI 교육", hd:"필로소피 AI 교육", fw:"—", kind:"AI + 철학",
+        url:"https://www.youtube.com/channel/UCKXP5U8mn3UMC6gWblROxAA",
+        why:"사용법을 넘어 ‘AI가 못 하는 일과 우리가 할 수 있는 일’을 묻는 철학적 관점. 교양 카테고리를 직접 겨냥할 때 가장 가까운 레퍼런스입니다.",
+        steal:["툴 소개 뒤에 반드시 질문 하나를 남기는 마무리","‘한계’를 다루며 과장 없는 신뢰를 쌓는 톤"] }
+    ]
+  },
+  {
+    id:"kr-social", pf:"instagram", idx:"02",
+    title:"국내 인스타그램 · 스레드 — 숏폼과 텍스트 훅",
+    sub:"첫 두 줄, 저장 유도, DM 퍼널",
+    items:[
+      { nm:"이다인", hd:"@leedain_leader_in", fw:"15.9만", kind:"IG · ChatGPT 고급",
+        url:"https://www.instagram.com/leedain_leader_in/", pf:"instagram",
+        why:"자기계발 채널에서 ChatGPT 가이드로 전환해 조회수를 크게 올린 사례. 기존 팔로워 자산을 AI 주제로 옮긴 전환 모델로 볼 만합니다.",
+        steal:["기존 주제와 AI를 잇는 전환 서사","‘논리적인 답을 끌어내는 법’처럼 결과를 약속하는 훅"] },
+      { nm:"AI 디자이너 아인", hd:"@ai_design_ain", fw:"7.4만", kind:"IG · 디자인/영상",
+        url:"https://www.instagram.com/ai_design_ain/", pf:"instagram",
+        why:"짧은 릴스로 디자인·영상 생성 AI를 다루고, 댓글에 키워드를 남기면 DM으로 추가 자료를 보내는 퍼널을 씁니다.",
+        steal:["댓글 키워드 → DM 자동 발송 퍼널","한 릴스 = 한 기능, 15~30초 안에 결과까지"] },
+      { nm:"AI픽 부키", hd:"@aipick_bookie", fw:"3.7만", kind:"IG · 이슈 리뷰",
+        url:"https://www.instagram.com/aipick_bookie/", pf:"instagram",
+        why:"신제품을 직설적으로 리뷰하고 실용적인 활용법을 강조. 홍보성 톤이 지배적인 카테고리에서 솔직함으로 차별화합니다.",
+        steal:["‘이건 아직 별로다’를 말하는 리뷰 신뢰도","이슈 발생 → 24시간 내 해석 콘텐츠"] },
+      { nm:"CHOI", hd:"@choi.openai", fw:"13만", kind:"TH · 이슈·전망",
+        url:"https://www.threads.com/@choi.openai", pf:"threads",
+        why:"최신 기술과 프롬프트, 뉴스·미래 전망까지 폭넓게 다루고 논문 수준의 깊이도 섞습니다. 스레드에서 가장 큰 규모의 AI 계정 중 하나.",
+        steal:["뉴스 → 해석 → 프롬프트로 이어지는 3단 글 구조","논문·원문 인용으로 만드는 밀도"] },
+      { nm:"EASYGPT", hd:"@easygpt2526", fw:"4.4만", kind:"TH · 역할 프롬프트",
+        url:"https://www.threads.com/@easygpt2526", pf:"threads",
+        why:"재무설계사·심리상담가 등 ‘나만의 OO’으로 쓰는 역할별 프롬프트를 계속 찍어냅니다. 복제 가능한 포맷의 좋은 예.",
+        steal:["직업 하나 = 프롬프트 하나의 시리즈화","복사해서 바로 붙일 수 있는 형태로 제공"] },
+      { nm:"윤권", hd:"@yoonkwon_ai", fw:"3.7만", kind:"TH · 문서·발표",
+        url:"https://www.threads.com/@yoonkwon_ai", pf:"threads",
+        why:"강의 노트 자동화, 문서작업, 발표 준비처럼 학생과 직장인이 동시에 걸리는 상황을 노립니다.",
+        steal:["학생·직장인 겹치는 상황 선점","‘시험 기간’ 같은 계절성 훅 활용"] },
+      { nm:"매필녀", hd:"@mapilnyeo", fw:"2.7만", kind:"TH · 자동화 개발",
+        url:"https://www.threads.com/@mapilnyeo", pf:"threads",
+        why:"AI 연구원 출신 개발자가 일상·업무 활용과 창의적 프롬프트를 소개. 기술 배경이 있는 사람의 생활형 콘텐츠라는 조합이 강점입니다.",
+        steal:["전문 배경 + 생활 소재의 의외성 조합","남들이 안 쓰는 각도의 프롬프트 발굴"] },
+      { nm:"AI Coffee Chat", hd:"@aicoffeechat", fw:"2.7만", kind:"TH · 해외 트렌드",
+        url:"https://www.threads.com/@aicoffeechat", pf:"threads",
+        why:"해외 AI 트렌드를 직접 검증한 뒤 소개합니다. 정보 유통 속도전에서 ‘검증’을 차별점으로 삼은 사례.",
+        steal:["소개 전 직접 테스트했다는 사실을 명시","해외 → 국내 시차를 콘텐츠 기회로"] },
+      { nm:"문단열", hd:"@ai.sadari", fw:"1만", kind:"TH · 인사이트",
+        url:"https://www.threads.com/@ai.sadari", pf:"threads",
+        why:"직접 경험한 100개 이상의 AI 인사이트를 쌓아 올리는 방식. 규모보다 축적으로 신뢰를 만드는 소형 계정 모델입니다.",
+        steal:["번호를 매겨 누적을 시각화하는 시리즈","‘AI가 일하게 하기’ 같은 관점 문장 하나로 승부"] }
+    ]
+  },
+  {
+    id:"global-yt", pf:"youtube", idx:"03",
+    title:"해외 유튜브 — 원리 설명과 리서치 해설",
+    sub:"교양 콘텐츠의 설명 설계 참고",
+    items:[
+      { nm:"3Blue1Brown", hd:"@3blue1brown", fw:"—", kind:"수학 시각화",
+        url:"https://www.youtube.com/@3blue1brown",
+        why:"추상적인 수학과 딥러닝 개념을 애니메이션으로 이해시키는 기준점. 교양 콘텐츠에서 ‘설명이 곧 그림’이 되는 최상급 사례입니다.",
+        steal:["개념 하나를 움직이는 그림으로 번역","수식보다 직관을 먼저 세우는 순서"] },
+      { nm:"Two Minute Papers", hd:"@TwoMinutePapers", fw:"—", kind:"논문 요약",
+        url:"https://www.youtube.com/@TwoMinutePapers",
+        why:"최신 AI 논문을 2~4분으로 요약하는 단순한 콘셉트를 열정적인 톤으로 밀어붙여 자리를 잡았습니다.",
+        steal:["‘몇 분 안에’라는 형식 자체를 브랜드로","이전 연구 대비 얼마나 좋아졌는지 비교 컷"] },
+      { nm:"AI Explained", hd:"@aiexplained-official", fw:"38만+", kind:"심층 해설",
+        url:"https://www.youtube.com/@aiexplained-official",
+        why:"업로드 양보다 깊이를 택해 팬층을 만든 채널. 발행 빈도가 낮아도 되는 전략의 근거로 쓸 수 있습니다.",
+        steal:["과장 없는 톤으로 만드는 신뢰","한 편에 여러 출처를 교차 검증해 넣기"] },
+      { nm:"Matt Wolfe", hd:"@mreflow", fw:"—", kind:"툴 리뷰·뉴스",
+        url:"https://www.youtube.com/@mreflow",
+        why:"FutureTools.io 운영자이자 AI 뉴스·툴 리뷰 분야에서 가장 많이 보는 목소리 중 하나. 채널과 자체 서비스를 엮은 구조가 참고점입니다.",
+        steal:["채널 + 자체 툴 디렉터리의 상호 송출","주간 뉴스 라운드업의 고정 코너 구성"] },
+      { nm:"Wes Roth", hd:"@WesRoth", fw:"30만+", kind:"에이전트·자동화",
+        url:"https://www.youtube.com/@WesRoth",
+        why:"AI 에이전트와 자동화, 상업적 활용에 초점을 둔 뉴스 채널. 주제를 좁게 잡아 뉴스 레인에서 자리를 확보한 사례.",
+        steal:["뉴스 안에서도 서브 주제를 좁히는 포지셔닝"] },
+      { nm:"StatQuest", hd:"@statquest", fw:"—", kind:"통계·ML 기초",
+        url:"https://www.youtube.com/@statquest",
+        why:"어려운 통계·머신러닝 수학을 ‘친근하게’ 만드는 설명 방식. 교양 톤을 지키면서 난도를 낮추는 기술의 교본입니다.",
+        steal:["단계별로 쪼개 한 번에 하나만 설명","반복 후렴구로 만드는 채널 개성"] },
+      { nm:"IBM Technology", hd:"@IBMTechnology", fw:"—", kind:"기업형 입문",
+        url:"https://www.youtube.com/@IBMTechnology",
+        why:"비전공자도 들어올 수 있는 AI·ML 입문 설명. 화이트보드 한 장으로 개념을 정리하는 포맷이 특징입니다.",
+        steal:["화이트보드 1장 = 영상 1편의 정보 밀도 제한","선수 지식을 최소로 가정하는 도입"] },
+      { nm:"Andrej Karpathy", hd:"@AndrejKarpathy", fw:"—", kind:"원리 강의",
+        url:"https://www.youtube.com/@AndrejKarpathy",
+        why:"LLM이 실제로 어떻게 동작하는지 바닥부터 짚는 강의. 교양 콘텐츠가 인용할 1차 출처로 쓰기 좋습니다.",
+        steal:["‘직접 만들어 보며 이해하기’ 구조","원리를 안다고 주장하는 대신 보여주기"] },
+      { nm:"Yannic Kilcher", hd:"@YannicKilcher", fw:"—", kind:"논문 리뷰",
+        url:"https://www.youtube.com/@YannicKilcher",
+        why:"논문을 수식과 동기까지 함께 뜯어봅니다. 뉴스가 아니라 근거를 다루고 싶을 때의 참고선.",
+        steal:["연구의 ‘왜’를 먼저 세우고 방법을 뒤에","주장과 한계를 같이 다루는 균형"] }
+    ]
+  },
+  {
+    id:"letters", pf:"letter", idx:"04",
+    title:"뉴스레터 — 매일 소재를 공급받는 파이프라인",
+    sub:"발행 주기를 지탱하는 입력원",
+    items:[
+      { nm:"The Rundown AI", hd:"therundown.ai", fw:"200만+", kind:"일간 종합",
+        url:"https://www.therundown.ai/", pf:"letter",
+        why:"구독자 200만 규모의 일간 5분 레터. 뉴스와 함께 실습 튜토리얼을 붙이는 구성이라 활용법 콘텐츠 소재로 바로 이어집니다.",
+        steal:["뉴스 + 바로 따라 하는 튜토리얼 묶음 구성","5분이라는 소비 시간 약속"] },
+      { nm:"Superhuman AI", hd:"superhuman.ai", fw:"150만+", kind:"일간 생산성",
+        url:"https://www.superhuman.ai/", pf:"letter",
+        why:"3분 분량의 생산성·툴 중심 일간 레터. 짧은 호흡의 숏폼 소재를 뽑기에 적합합니다.",
+        steal:["3분 안에 끝나는 정보 밀도 설계"] },
+      { nm:"TLDR AI", hd:"tldr.tech/ai", fw:"110만+", kind:"일간 기술",
+        url:"https://tldr.tech/ai", pf:"letter",
+        why:"편집자 목소리를 덜어내고 기술·연구를 촘촘히 다루는 평일 레터. 교양 콘텐츠의 사실 확인용으로 씁니다.",
+        steal:["의견 없이 사실만 나열하는 요약 톤"] },
+      { nm:"Ben's Bites", hd:"bensbites.com", fw:"—", kind:"주간 창업·투자",
+        url:"https://bensbites.com/", pf:"letter",
+        why:"창업 생태계와 투자 관점의 주간 레터. ‘AI로 돈이 어디로 흐르는가’ 각도의 교양 콘텐츠 소재원입니다.",
+        steal:["산업 흐름을 개인의 기회로 번역하는 각도"] },
+      { nm:"Latent Space", hd:"latent.space", fw:"—", kind:"엔지니어 심화",
+        url:"https://www.latent.space/", pf:"letter",
+        why:"AI 엔지니어 대상 심화 레터·팟캐스트. 대중 콘텐츠가 얕아지지 않도록 잡아 주는 균형추로 두면 좋습니다.",
+        steal:["대중 설명 뒤에 깔아 둘 기술적 근거 확보"] }
+    ]
+  }
+];
+
+/* ── render ─────────────────────────────────────────────── */
+const LIFTS = [0, 6, 12, 4, 9, 2, 14];
+let seq = 0;
+
+function pfOf(item, block){ return item.pf || block.pf; }
+
+const sheetEl = document.getElementById("sheet");
+const tally = {youtube:0, instagram:0, threads:0, letter:0};
+
+BLOCKS.forEach(block => {
+  const sec = document.createElement("section");
+  sec.className = "block";
+  sec.dataset.block = block.id;
+  sec.style.setProperty("--pc", PF[block.pf].color);
+
+  const head = document.createElement("div");
+  head.className = "block-head";
+  head.innerHTML = `<span class="idx">${block.idx}</span><h2></h2><span class="sub"></span>`;
+  head.querySelector("h2").textContent = block.title;
+  head.querySelector(".sub").textContent = block.sub + " · " + block.items.length + "개";
+  sec.appendChild(head);
+
+  const scroller = document.createElement("div");
+  scroller.className = "scroller";
+  const grid = document.createElement("div");
+  grid.className = "sheet";
+
+  block.items.forEach(item => {
+    const pf = pfOf(item, block);
+    tally[pf]++;
+    seq++;
+    const no = String(seq).padStart(2, "0");
+
+    const card = document.createElement("button");
+    card.type = "button";
+    card.className = "card";
+    card.dataset.pf = pf;
+    card.setAttribute("aria-expanded", "false");
+    card.style.setProperty("--pc", PF[pf].color);
+    card.style.setProperty("--lift", LIFTS[(seq - 1) % LIFTS.length]);
+
+    const frame = document.createElement("div");
+    frame.className = "frame";
+    frame.innerHTML = `<span class="no">${no}</span><span class="pf">${PF[pf].short}</span>
+      <span class="kind"></span><span class="hook"></span>`;
+    frame.querySelector(".kind").textContent = item.kind;
+    frame.querySelector(".hook").textContent = item.nm;
+
+    const meta = document.createElement("div");
+    meta.className = "meta";
+    meta.innerHTML = `<span class="nm"></span><span class="hd"></span><span class="fw"></span>`;
+    meta.querySelector(".nm").textContent = item.nm;
+    meta.querySelector(".hd").textContent = item.hd;
+    meta.querySelector(".fw").textContent = item.fw === "—" ? "규모 미확인" : item.fw + " 구독";
+
+    card.append(frame, meta);
+    card.addEventListener("click", () => openLoupe(card, item, pf, no));
+    grid.appendChild(card);
+  });
+
+  scroller.appendChild(grid);
+  sec.appendChild(scroller);
+  sheetEl.appendChild(sec);
+});
+
+/* counts */
+const countsEl = document.getElementById("counts");
+const total = Object.values(tally).reduce((a, b) => a + b, 0);
+[["전체 레퍼런스", total], ["유튜브", tally.youtube], ["인스타그램", tally.instagram],
+ ["스레드", tally.threads], ["뉴스레터", tally.letter]].forEach(([l, n]) => {
+  const d = document.createElement("div");
+  d.className = "count";
+  d.innerHTML = `<span class="n"></span><span class="l"></span>`;
+  d.querySelector(".n").textContent = n;
+  d.querySelector(".l").textContent = l;
+  countsEl.appendChild(d);
+});
+
+/* ── filters ────────────────────────────────────────────── */
+const chipsEl = document.getElementById("chips");
+const active = new Set();
+
+function mkChip(key, label, n){
+  const b = document.createElement("button");
+  b.type = "button";
+  b.className = "chip";
+  b.setAttribute("aria-pressed", "false");
+  b.innerHTML = key === "all"
+    ? `<span></span><span class="k">${n}</span>`
+    : `<span class="dot" style="color:${PF[key].color}"></span><span></span><span class="k">${n}</span>`;
+  b.querySelectorAll("span")[key === "all" ? 0 : 1].textContent = label;
+  b.addEventListener("click", () => {
+    if (key === "all") { active.clear(); }
+    else if (active.has(key)) { active.delete(key); }
+    else { active.add(key); }
+    applyFilter();
+  });
+  b.dataset.key = key;
+  chipsEl.appendChild(b);
+}
+
+mkChip("all", "전체", total);
+mkChip("youtube", "유튜브", tally.youtube);
+mkChip("instagram", "인스타그램", tally.instagram);
+mkChip("threads", "스레드", tally.threads);
+mkChip("letter", "뉴스레터", tally.letter);
+
+function applyFilter(){
+  const on = active.size > 0;
+  document.querySelectorAll(".card").forEach(c => {
+    c.hidden = on && !active.has(c.dataset.pf);
+  });
+  document.querySelectorAll("section.block").forEach(s => {
+    s.hidden = s.querySelectorAll(".card:not([hidden])").length === 0;
+  });
+  chipsEl.querySelectorAll(".chip").forEach(ch => {
+    ch.setAttribute("aria-pressed",
+      ch.dataset.key === "all" ? String(!on) : String(active.has(ch.dataset.key)));
+  });
+}
+applyFilter();
+
+/* ── loupe ──────────────────────────────────────────────── */
+const loupe = document.getElementById("loupe");
+let openCard = null;
+
+function openLoupe(card, item, pf, no){
+  if (openCard === card) { closeLoupe(); return; }
+  if (openCard) openCard.setAttribute("aria-expanded", "false");
+  openCard = card;
+  card.setAttribute("aria-expanded", "true");
+
+  loupe.style.setProperty("--pc", PF[pf].color);
+  loupe.style.setProperty("--lift", card.style.getPropertyValue("--lift"));
+  loupe.innerHTML = `
+    <div class="loupe-in">
+      <div class="chipframe"><span></span></div>
+      <div>
+        <div class="lp-h"><h3></h3><span class="tag"></span></div>
+        <div class="lp-sub"></div>
+        <p class="lp-body"></p>
+      </div>
+      <div class="lp-col">
+        <h4>훔칠 것 / 벤치마킹 포인트</h4>
+        <ul></ul>
+      </div>
+      <div class="lp-actions">
+        <a class="visit" target="_blank" rel="noopener">계정 열기 ↗</a>
+        <button class="closer" type="button">닫기 (Esc)</button>
+      </div>
+    </div>`;
+
+  loupe.querySelector(".chipframe span").textContent = item.nm;
+  loupe.querySelector("h3").textContent = item.nm;
+  loupe.querySelector(".tag").textContent = PF[pf].name + " · " + item.kind;
+  loupe.querySelector(".lp-sub").textContent =
+    no + " · " + item.hd + (item.fw === "—" ? "" : " · " + item.fw);
+  loupe.querySelector(".lp-body").textContent = item.why;
+  const ul = loupe.querySelector(".lp-col ul");
+  item.steal.forEach(s => {
+    const li = document.createElement("li");
+    li.textContent = s;
+    ul.appendChild(li);
+  });
+  loupe.querySelector(".visit").href = item.url;
+  loupe.querySelector(".closer").addEventListener("click", closeLoupe);
+  loupe.classList.add("open");
+}
+
+function closeLoupe(){
+  loupe.classList.remove("open");
+  if (openCard) { openCard.setAttribute("aria-expanded", "false"); openCard.focus(); }
+  openCard = null;
+}
+
+document.addEventListener("keydown", e => {
+  if (e.key === "Escape" && openCard) closeLoupe();
+});
+</script>
