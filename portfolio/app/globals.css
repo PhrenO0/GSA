@@ -1,0 +1,104 @@
+@import "tailwindcss";
+
+/* Family names here have to match the strings in ring/params.js — nameFont,
+   idxFont and textFont are looked up by name, not imported. */
+
+/* Everything Korean. Subset to the KS X 1001 syllables by
+   tools/subset-fonts.py, which is what keeps four weights under 700 KB. */
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/Pretendard-Regular.subset.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/Pretendard-Medium.subset.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/Pretendard-SemiBold.subset.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Pretendard";
+  src: url("/fonts/Pretendard-Bold.subset.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* The in-scene heading and the cursor tag, both rasterised to canvas, and the
+   Latin display type on the standard pages. Two real weights, so nameWeight
+   400 and 500 both resolve to a cut rather than a synthesised one. */
+@font-face {
+  font-family: "Satoshi";
+  src: url("/Satoshi-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Satoshi";
+  src: url("/Satoshi-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Numbers, years and the load counter. */
+@font-face {
+  font-family: "Geist";
+  src: url("/Geist-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  --ink: #0a0a0a;
+  --paper: #fafafa;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  overscroll-behavior-y: none;
+  font-family: "Pretendard", ui-sans-serif, system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  /* Korean has no inter-word breaking to fall back on: without this a line
+     breaks mid-word wherever the box runs out. Latin words long enough to
+     overflow on their own still break, hence the pair. */
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
+/* The carousel owns the whole viewport and the wheel with it, so the page it
+   sits on must not scroll. Set by the component rather than globally — every
+   other route is an ordinary scrolling document. */
+html.ring-locked,
+html.ring-locked body {
+  overflow: hidden;
+}
+
+canvas {
+  display: block;
+}
+
+::selection {
+  background: #0a0a0a;
+  color: #fafafa;
+}
