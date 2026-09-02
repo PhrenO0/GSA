@@ -1,0 +1,508 @@
+<title>김젬니 발행 판정표</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@400;500;700;800&family=Gowun+Batang:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+
+<style>
+:root{
+  --bg:#F3F2EE; --surface:#FFFFFF; --surface-2:#FAFAF7; --sunk:#E7E6E0;
+  --ink:#16161A; --ink-2:#3E3E47; --muted:#6C6C77;
+  --line:#DEDDD6; --line-2:#C7C6BE;
+  --accent:#123C8C; --accent-ink:#FFFFFF;
+  --keep:#1C6446; --edit:#8A5A0F; --merge:#123C8C; --cut:#96271F; --add:#5B2E8C;
+  --bar:#A9A9A0; --bar-hi:#123C8C; --bar-op:#1C6446;
+  --shadow:0 1px 0 rgba(22,22,26,.04), 0 10px 26px -20px rgba(22,22,26,.5);
+  --display:"Gowun Batang","Apple SD Gothic Neo",serif;
+  --body:"Gothic A1","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+  --mono:"IBM Plex Mono","SFMono-Regular",Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F0F11; --surface:#17171A; --surface-2:#1D1D21; --sunk:#0A0A0C;
+    --ink:#ECECEF; --ink-2:#B5B5BE; --muted:#85858F;
+    --line:#26262B; --line-2:#35353C;
+    --accent:#8FAEF5; --accent-ink:#0F0F11;
+    --keep:#5FC79A; --edit:#DDAB5C; --merge:#8FAEF5; --cut:#E88A80; --add:#C0A0F0;
+    --bar:#4C4C55; --bar-hi:#8FAEF5; --bar-op:#5FC79A;
+    --shadow:0 1px 0 rgba(0,0,0,.5), 0 12px 30px -22px #000;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F0F11; --surface:#17171A; --surface-2:#1D1D21; --sunk:#0A0A0C;
+  --ink:#ECECEF; --ink-2:#B5B5BE; --muted:#85858F;
+  --line:#26262B; --line-2:#35353C;
+  --accent:#8FAEF5; --accent-ink:#0F0F11;
+  --keep:#5FC79A; --edit:#DDAB5C; --merge:#8FAEF5; --cut:#E88A80; --add:#C0A0F0;
+  --bar:#4C4C55; --bar-hi:#8FAEF5; --bar-op:#5FC79A;
+  --shadow:0 1px 0 rgba(0,0,0,.5), 0 12px 30px -22px #000;
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);
+  font-size:14px;line-height:1.65;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:0 26px}
+h2{font-family:var(--display);font-weight:700;font-size:23px;letter-spacing:-.01em;margin:0}
+h3{font-family:var(--body);font-weight:700;font-size:14.5px;margin:0}
+p{margin:0}
+
+/* masthead */
+header.mast{background:var(--surface);border-bottom:1px solid var(--line);padding:30px 0 0}
+.brow{font-family:var(--mono);font-size:10px;letter-spacing:.16em;text-transform:uppercase;
+  color:var(--muted);display:flex;gap:14px;flex-wrap:wrap}
+.brow b{color:var(--accent);font-weight:600}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(30px,4vw,46px);letter-spacing:-.02em;
+  line-height:1.1;margin:12px 0 0;text-wrap:balance}
+.lede{max-width:66ch;color:var(--ink-2);margin:12px 0 0;font-size:14.5px}
+.kpis{display:flex;flex-wrap:wrap;margin:24px 0 0;border-top:1px solid var(--line)}
+.kpi{padding:13px 24px 15px 0;margin-right:24px;border-right:1px solid var(--line)}
+.kpi:last-child{border-right:0}
+.kpi .n{font-family:var(--mono);font-size:23px;font-weight:600;letter-spacing:-.03em;display:block;
+  font-variant-numeric:tabular-nums}
+.kpi .l{font-size:11.5px;color:var(--muted)}
+
+section{padding:44px 0 0}
+.shead{display:flex;align-items:baseline;gap:12px;border-bottom:1.5px solid var(--ink);
+  padding-bottom:8px;margin-bottom:20px}
+.shead .no{font-family:var(--mono);font-size:11px;font-weight:600;color:var(--accent)}
+.shead .sub{margin-left:auto;font-size:12px;color:var(--muted);text-align:right}
+
+/* diagnosis */
+.diags{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.diag{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--cut);
+  border-radius:3px;padding:16px 17px 18px}
+.diag .tag{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--cut);font-weight:600}
+.diag h3{margin:7px 0 7px;font-size:15px;line-height:1.4;text-wrap:balance}
+.diag p{font-size:13px;color:var(--ink-2)}
+.diag .ev{font-family:var(--mono);font-size:10.5px;color:var(--muted);margin-top:9px;
+  padding-top:9px;border-top:1px solid var(--line)}
+
+/* demand chart */
+.rows{display:flex;flex-direction:column;gap:5px;background:var(--surface);
+  border:1px solid var(--line);border-radius:3px;padding:16px 18px}
+.row{display:grid;grid-template-columns:150px minmax(0,1fr) 62px 84px 104px;gap:10px;align-items:center}
+.rn{font-size:12px;color:var(--ink-2);text-align:right;white-space:nowrap;overflow:hidden;
+  text-overflow:ellipsis}
+.rt{display:block;height:12px;position:relative;background:var(--sunk);border-radius:0 2px 2px 0}
+.rb{display:block;width:0;height:12px;background:var(--bar);border-radius:0 3px 3px 0;
+  transition:width .6s cubic-bezier(.2,.7,.3,1)}
+.row.hi .rb{background:var(--bar-hi)}
+.row.op .rb{background:var(--bar-op)}
+.rv,.rc{font-family:var(--mono);font-size:10.5px;color:var(--ink-2);font-variant-numeric:tabular-nums}
+.rc{color:var(--muted)}
+.verdict{font-family:var(--mono);font-size:9.5px;letter-spacing:.04em;padding:1px 6px;border-radius:2px;
+  border:1px solid currentColor;justify-self:start;white-space:nowrap}
+.v-sat{color:var(--cut)} .v-comp{color:var(--edit)} .v-gap{color:var(--keep)} .v-un{color:var(--muted)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:11.5px;color:var(--muted)}
+.legend b{color:var(--ink-2);font-weight:500}
+.note{font-size:12px;color:var(--muted);margin-top:12px;max-width:80ch}
+
+/* layers */
+.layers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.layer{background:var(--surface);border:1px solid var(--line);border-radius:3px;overflow:hidden}
+.layer .lh{padding:13px 16px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+.layer .lh .k{font-family:var(--mono);font-size:9.5px;letter-spacing:.13em;text-transform:uppercase;
+  color:var(--accent);font-weight:600}
+.layer .lh h3{margin-top:5px;font-size:15px}
+.layer .lh p{font-size:12px;color:var(--muted);margin-top:3px}
+.layer ul{margin:0;padding:12px 16px 15px 30px;font-size:12.5px;color:var(--ink-2)}
+.layer li{margin-bottom:5px}
+.layer li b{color:var(--ink);font-weight:700}
+
+/* verdict table */
+table.vt{width:100%;border-collapse:collapse;font-size:13px;background:var(--surface);
+  border:1px solid var(--line);border-radius:3px;overflow:hidden}
+table.vt th{font-family:var(--mono);font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;
+  color:var(--muted);font-weight:500;text-align:left;padding:9px 12px;background:var(--surface-2);
+  border-bottom:1px solid var(--line)}
+table.vt td{padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+table.vt tr:last-child td{border-bottom:0}
+table.vt .ttl{font-weight:700;color:var(--ink)}
+table.vt .why{color:var(--ink-2);font-size:12.5px}
+table.vt .ln{font-family:var(--mono);font-size:10px;color:var(--muted);white-space:nowrap}
+.vd{font-family:var(--mono);font-size:10px;font-weight:600;letter-spacing:.05em;padding:2px 7px;
+  border-radius:2px;color:#fff;white-space:nowrap;display:inline-block}
+.vd.keep{background:var(--keep)} .vd.edit{background:var(--edit)} .vd.merge{background:var(--merge)}
+.vd.cut{background:var(--cut)} .vd.add{background:var(--add)}
+:root[data-theme="dark"] .vd,:root:not([data-theme="light"]) .vd{color:#0F0F11}
+.warn{display:inline-block;font-family:var(--mono);font-size:9.5px;color:var(--cut);
+  border:1px solid var(--cut);border-radius:2px;padding:0 4px;margin-left:5px}
+
+/* calendar */
+.weeks{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.wk{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:13px 14px 15px}
+.wk .n{font-family:var(--mono);font-size:10px;letter-spacing:.1em;color:var(--accent);font-weight:600}
+.wk h3{margin:5px 0 6px;font-size:13.5px;line-height:1.35}
+.wk p{font-size:12px;color:var(--ink-2)}
+.wk .why{font-size:11.5px;color:var(--muted);margin-top:7px;padding-top:7px;border-top:1px solid var(--line)}
+
+/* risks */
+.risks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.risk{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--cut);
+  border-radius:3px;padding:16px 18px 18px}
+.risk h3{color:var(--cut);font-size:14.5px}
+.risk p{font-size:13px;color:var(--ink-2);margin-top:8px}
+.risk .fix{font-size:12.5px;background:var(--surface-2);border-radius:3px;padding:10px 12px;margin-top:10px}
+.risk .fix b{color:var(--ink)}
+.risk cite{display:block;font-family:var(--mono);font-size:10px;color:var(--muted);margin-top:9px;font-style:normal}
+
+/* checklist */
+.check{background:var(--surface);border:1px solid var(--line);border-radius:3px;padding:18px 20px 20px}
+.check ol{margin:10px 0 0;padding-left:20px;font-size:13.5px;color:var(--ink-2)}
+.check li{margin-bottom:8px}
+.check li b{color:var(--ink)}
+.qbox{font-family:var(--display);font-weight:700;font-size:19px;line-height:1.4;color:var(--ink);
+  border-left:3px solid var(--accent);padding-left:14px;margin-bottom:4px;text-wrap:balance}
+
+footer{margin-top:52px;border-top:1px solid var(--line);background:var(--surface);padding:22px 0 44px;
+  font-size:12px;color:var(--muted)}
+footer p{margin-bottom:9px;max-width:88ch}
+footer strong{color:var(--ink-2)}
+footer a{color:var(--accent);text-decoration:none;
+  border-bottom:1px solid color-mix(in srgb,var(--accent) 35%,transparent)}
+.srcs{display:flex;flex-wrap:wrap;gap:4px 14px;margin-top:10px;font-family:var(--mono);font-size:10.5px}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+@media (max-width:940px){
+  .diags,.layers,.risks{grid-template-columns:1fr}
+  .weeks{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .row{grid-template-columns:110px minmax(0,1fr) 54px 104px}
+  .rc{display:none}
+}
+</style>
+
+<header class="mast">
+  <div class="wrap">
+    <div class="brow">
+      <span>김젬니 · 중앙대</span>
+      <span>발행 판정표</span>
+      <span><b>26편</b> 실측 대조</span>
+      <span id="stamp"></span>
+    </div>
+    <h1>김젬니 발행 판정표</h1>
+    <p class="lede">
+      기획된 26편을 이번 세션에서 직접 측정한 데이터에 대봤습니다 —
+      국내외 유튜브 20개 채널의 구독자·조회수, X와 스레드에서 수집한 제미나이 게시물 68건의 본문과 좋아요.
+      감이 아니라 <strong>공급(경쟁 게시물 수)과 수요(실제 좋아요)</strong>로 편마다 유지·수정·통합·삭제를 판정했습니다.
+    </p>
+    <div class="kpis" id="kpis"></div>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <div class="shead"><span class="no">01</span><h2>진단</h2>
+      <span class="sub">지금 이대로 발행하면 생기는 문제</span></div>
+    <div class="diags">
+      <div class="diag">
+        <span class="tag">Problem 01</span>
+        <h3>절반이 “제미나이 콘텐츠”가 아닙니다</h3>
+        <p>INSIGHT BOOST 5편과 AI 교양 일부는 제미나이를 ChatGPT로 바꿔도 그대로 성립합니다.
+        캠페인 목표가 제미나이 마케팅이라면, 브랜드가 귀속되지 않는 콘텐츠는 조회수가 나와도 목표 미달입니다.</p>
+        <p class="ev">판정 기준 · “이 편을 ChatGPT로 다시 만들 수 있는가?”</p>
+      </div>
+      <div class="diag">
+        <span class="tag">Problem 02</span>
+        <h3>축이 7개면 채널 정체성이 안 잡힙니다</h3>
+        <p>철학·비평·기능실험·치트키·캠페인·POV가 한 채널에 섞여 있습니다.
+        사람도 알고리즘도 이 채널이 무엇인지 잡지 못합니다. 축은 3개까지가 한계입니다.</p>
+        <p class="ev">7개 축 · 26편 · 담당 1인</p>
+      </div>
+      <div class="diag">
+        <span class="tag">Problem 03</span>
+        <h3>공장을 마지막에 돌리려 합니다</h3>
+        <p>참여형 캠페인은 콘텐츠 한 편이 아니라 <strong>콘텐츠 공장</strong>입니다.
+        학생 제출 → 검증 → TOP 5 → 치트키 재가공. 5번 축(실용 프롬프트)의 재료가 전부 여기서 나오는데
+        순서상 뒤에 있습니다.</p>
+        <p class="ev">캠페인 1회 = 실용 콘텐츠 4~5편 공급</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead"><span class="no">02</span><h2>수요 지도</h2>
+      <span class="sub">수집한 68건이 말하는 공급과 수요</span></div>
+    <div class="rows" id="demand"></div>
+    <div class="legend">
+      <span><b>막대</b> = 해당 주제 게시물의 합산 좋아요(수요)</span>
+      <span><b>경쟁</b> = 68건 중 그 주제를 다룬 게시물 수(공급)</span>
+      <span><b style="color:var(--bar-op)">초록</b> = 공급은 적은데 수요가 확인된 지대</span>
+    </div>
+    <p class="note">
+      좋아요는 X 게시물만 집계했습니다 — 스레드는 공개 페이지에 좋아요 수를 노출하지 않아 0으로 두었습니다.
+      그래서 스레드에서만 도는 주제는 실제보다 낮게 잡혔을 수 있습니다.
+      <strong>“무주공산”은 기회가 아니라 미검증입니다.</strong> 공급이 0인데 수요도 0이면,
+      아무도 안 만드는 게 아니라 아무도 안 찾는 것일 수 있습니다. AI Slop·FOMO·아첨이 여기 있습니다.
+    </p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead"><span class="no">03</span><h2>3층으로 재배치</h2>
+      <span class="sub">7개 축 → 3개 층</span></div>
+    <div class="layers">
+      <div class="layer">
+        <div class="lh"><span class="k">Layer 1 · 도달</span><h3>보여줄 것</h3>
+          <p>구독자 밖으로 나가 신규 유입을 만드는 층</p></div>
+        <ul>
+          <li><b>캠퍼스 AI POV</b> — 영상 생성 자체가 볼거리</li>
+          <li><b>Hot Girl남</b> — 단발 릴스, 마지막 3초 프롬프트 공개 필수</li>
+          <li>근거: 실측 20개 채널 중 <b>김그륜만 도달배율 1.50</b>으로 1.0 초과. 영상 생성 AI는 구독자 밖으로 나갑니다</li>
+        </ul>
+      </div>
+      <div class="layer">
+        <div class="lh"><span class="k">Layer 2 · 저장</span><h3>쓰게 할 것</h3>
+          <p>팔로우와 저장으로 바꾸는 층 · 발행량의 절반</p></div>
+        <ul>
+          <li><b>학과별 AI 치트키</b> — 남이 못 만드는 로컬 독점</li>
+          <li><b>중대피셜 TOP 5</b> — 캠페인 산출물</li>
+          <li><b>Gmail·Calendar 생활비서</b> — 공백 지대 + 구조적 우위</li>
+          <li><b>수업자료 실전 변환</b> — 한 학기 통째로</li>
+        </ul>
+      </div>
+      <div class="layer">
+        <div class="lh"><span class="k">Layer 3 · 신뢰</span><h3>믿게 할 것</h3>
+          <p>“이 채널은 검증한다”를 만드는 층 · 월 1편</p></div>
+        <ul>
+          <li><b>AI 교양</b> — Slop / FOMO / 아첨</li>
+          <li><b>검색 그라운딩</b> — 신규 편, 제미나이만의 것</li>
+          <li><b>INSIGHT BOOST</b> — 5편에서 3편으로 압축해 여기 흡수</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead"><span class="no">04</span><h2>편별 판정</h2>
+      <span class="sub">26편 → 22편 · 신규 1편 추가</span></div>
+    <table class="vt"><thead><tr>
+      <th style="width:120px">축</th><th style="width:230px">편</th>
+      <th style="width:78px">판정</th><th>근거</th>
+    </tr></thead><tbody id="vt"></tbody></table>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead"><span class="no">05</span><h2>8주 발행 순서</h2>
+      <span class="sub">공장을 먼저 돌리고, 도달 → 저장 → 신뢰 순으로</span></div>
+    <div class="weeks" id="weeks"></div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead"><span class="no">06</span><h2>발행 전 반드시 정리할 리스크</h2>
+      <span class="sub">둘 다 콘텐츠가 아니라 기획 단계의 문제</span></div>
+    <div class="risks">
+      <div class="risk">
+        <h3>푸앙이는 임의 변경이 금지되어 있습니다</h3>
+        <p>중앙대 캐릭터 사용 가이드에 <strong>“본 캐릭터 사용 가이드에 수록된 내용 중 어떠한 부분도
+        임의로 변경해 사용할 수 없습니다”</strong>가 명시돼 있습니다. AI로 새 포즈·새 장면의 푸앙이를 생성하는 것은
+        해석상 임의 변경에 해당할 소지가 큽니다. 캐릭터는 학교 자산이라 무단 복제도 금지 대상입니다.</p>
+        <div class="fix"><b>대응</b> — 기획 확정 전에 홍보팀 또는 학생지원팀(서울)에 서면 문의.
+        승인이 안 나면 자체 캐릭터로 전환하고, 캠퍼스 공간만 제미나이 시점으로 재해석하는 안으로 대체합니다.
+        POV 축 자체는 살릴 수 있습니다.</div>
+        <cite>출처 · 중앙대학교 마스코트 ‘푸앙’ 캐릭터 사용 가이드</cite>
+      </div>
+      <div class="risk">
+        <h3>AI 아첨 편은 스폰서를 때릴 수 있습니다</h3>
+        <p>2026년 연구에서 사용자 기억(메모리) 프로필이 있을 때 동조형 아첨이 크게 늘고,
+        <strong>Gemini 2.5에서 +45%</strong>라는 수치가 보고됐습니다. 제미나이를 검증 대상으로 놓고
+        정직하게 테스트하면, 캠페인 스폰서에게 불리한 결과가 나올 수 있습니다.</p>
+        <div class="fix"><b>대응</b> — 프레이밍을 미리 정하세요. 권장은
+        <b>“어느 모델이 제일 아부하나”가 아니라 “아첨을 어떻게 방어하나”</b>입니다.
+        모델 비교가 아니라 사용자 기술(반대 근거 요구, 메모리 끄기, 재질문)로 프레임을 옮기면
+        비판적 신뢰도는 얻고 스폰서 리스크는 없앱니다.</div>
+        <cite>출처 · CHI 2026 “Interaction Context Often Increases Sycophancy in LLMs”</cite>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <div class="shead"><span class="no">07</span><h2>모든 편에 적용할 귀속 체크</h2>
+      <span class="sub">기획서를 넘기기 전 마지막 관문</span></div>
+    <div class="check">
+      <p class="qbox">“이 콘텐츠를 ChatGPT로 똑같이 만들 수 있는가?”</p>
+      <p style="font-size:13px;color:var(--ink-2)">
+        만들 수 있다면 제미나이 콘텐츠가 아닙니다. 아래 다섯 중 최소 하나를 편마다 넣으세요 —
+        전부 경쟁사가 구조적으로 못 따라오는 것들입니다.</p>
+      <ol>
+        <li><b>검색 그라운딩</b> — 그리기 전에 구글 검색으로 실시간 데이터를 가져옵니다. 오늘 날씨·환율·학식 메뉴로 만든 인포그래픽은 제미나이만 됩니다</li>
+        <li><b>유튜브 URL 영상 이해</b> — 링크만 던지면 프레임 단위로 봅니다. ChatGPT는 대개 자막만 읽습니다</li>
+        <li><b>Gmail·Calendar·Drive 연동</b> — 내 메일과 일정에 직접 붙습니다</li>
+        <li><b>전 티어 100만 토큰</b> — 가장 싼 모델까지 1M입니다. <b>단, 18장 PDF로는 이 강점이 드러나지 않습니다</b>. 한 학기 강의자료 전체 + 교재 + 기출을 통째로 넣어야 “제미나이만 되는 실험”이 됩니다</li>
+        <li><b>AI Studio 무료 접근</b> — 학생에게 결제 장벽이 없는 경로. 단 2026년 4월부터 Pro 모델은 유료 전용이라 “무료로 다 된다”는 표현은 쓰지 마세요</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>
+      <strong>이 판정의 근거.</strong> 수요 지도는 이번 세션에서 X 46건·스레드 22건을 직접 수집해
+      본문을 주제별 정규식으로 분류하고 좋아요를 합산한 값입니다. 도달배율·아웃라이어 배수는
+      유튜브 20개 채널을 yt-dlp로 조회해 계산했습니다. 두 데이터 모두 저장소에 원본이 남아 있습니다.
+    </p>
+    <p>
+      <strong>한계.</strong> 68건은 X·스레드 전체가 아니라 검색엔진에 색인된 것 중에서 모은 표본입니다.
+      주제 분류는 키워드 자동 분류라 경계 사례가 있습니다. 스레드 좋아요는 수집 불가라 0으로 처리했습니다.
+      <strong>즉 수요 지도는 순위의 대소를 보는 용도이지, 절대값을 인용할 자료가 아닙니다.</strong>
+      벤치마크·사용자 수 같은 외부 수치는 2차 출처 기반이므로 콘텐츠에 인용하기 전 원문을 확인하세요.
+    </p>
+    <div class="srcs">
+      <span>Sources ·</span>
+      <a href="https://www.cau.ac.kr/cms/FR_CON/index.do?MENU_ID=2540">중앙대 마스코트 ‘푸앙’ 가이드</a>
+      <a href="https://dl.acm.org/doi/10.1145/3772318.3791915">CHI 2026 Sycophancy</a>
+      <a href="https://arxiv.org/html/2605.21778v1">AI Sycophancy Taxonomy</a>
+      <a href="https://ai.google.dev/gemini-api/docs/google-search">Gemini Search Grounding 문서</a>
+      <a href="https://developers.googleblog.com/en/gemini-2-5-video-understanding/">Gemini 영상 이해</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── measured demand, from this session's 68-post corpus ── */
+const DEMAND=[
+ {t:"프롬프트 치트키",     love:17333, n:48, v:"포화",  vc:"v-sat"},
+ {t:"Antigravity",       love:7921,  n:7,  v:"경쟁 있음", vc:"v-comp"},
+ {t:"PDF·수업자료 변환",   love:5039,  n:7,  v:"경쟁 있음", vc:"v-comp"},
+ {t:"Gmail·Calendar 비서", love:1262, n:2,  v:"공백",  vc:"v-gap", op:true},
+ {t:"검색 그라운딩",       love:170,   n:2,  v:"공백",  vc:"v-gap", op:true},
+ {t:"Google AI Studio",  love:167,   n:4,  v:"경쟁 있음", vc:"v-comp"},
+ {t:"POV·캐릭터 영상",     love:57,    n:2,  v:"공백",  vc:"v-gap", op:true},
+ {t:"AI Slop 판별",       love:0,     n:0,  v:"미검증", vc:"v-un"},
+ {t:"AI FOMO",           love:0,     n:0,  v:"미검증", vc:"v-un"},
+ {t:"AI 아첨",            love:0,     n:0,  v:"미검증", vc:"v-un"},
+ {t:"바이브코딩·도구제작",   love:0,     n:0,  v:"미검증", vc:"v-un"},
+ {t:"철학·인사이트",       love:0,     n:0,  v:"미검증", vc:"v-un"},
+];
+
+const VERDICTS=[
+ ["INSIGHT BOOST","사랑 — AI 편 + 인간 편","merge",
+  "두 편을 한 편으로. 지금은 AI VIEW와 HUMAN VOICE가 분리 편성이라 대립이 안 생깁니다. 릴스는 갈등이 있어야 끝까지 봅니다."],
+ ["INSIGHT BOOST","꿈 — AI 편 + 인간 편","merge",
+  "위와 같은 이유로 한 편. 5편이 3편이 되면서 편당 밀도가 올라갑니다."],
+ ["INSIGHT BOOST","정의 — “모두에게 같은 것이 공정한가”","edit",
+  "가장 살릴 만한 주제. 다만 검색 그라운딩으로 ‘2026년 지금 사람들이 실제로 공정을 어떻게 말하는지’를 검색해 그린 이미지를 AI VIEW로 쓰면 제미나이 귀속이 생깁니다."],
+ ["AI 교양","AI Slop","keep",
+  "신뢰층의 핵심. 코퍼스 수요는 미검증이지만 브랜드 포지션 목적이라 조회수로 평가할 편이 아닙니다."],
+ ["AI 교양","AI FOMO","keep",
+  "대학생 타깃과 정확히 맞는 정서. ‘도구를 더 쓰는 게 답이 아니다’는 결론이 채널 신뢰를 만듭니다."],
+ ["AI 교양","AI 아첨","keep",
+  "논문 근거가 확실하고 재현 테스트가 가능합니다. 다만 프레이밍 리스크가 있어 06번을 먼저 읽으세요.", true],
+ ["AI 교양","수업 PDF 실험 + Gemini 3.7 Flash 실험","merge",
+  "원래 계획대로 통합. 단 18장 PDF는 ChatGPT로도 됩니다 — 한 학기 강의자료 전체로 키워야 1M 컨텍스트가 드러납니다."],
+ ["AI 교양","(신규) 제미나이는 검색하고 나서 그린다","add",
+  "남은 한 편. 68건 중 2건뿐인 공백이고, 경쟁사가 원리적으로 못 따라오는 유일한 기능입니다. AI 교양 프레임과도 맞습니다."],
+ ["HIDDEN MODE","Google AI Studio 활용법","keep",
+  "학생 결제 장벽을 없애는 경로라 실용성이 높습니다."],
+ ["HIDDEN MODE","Gemini Spark 기능 실험","keep",
+  "국내 실측 채널 중 필로소피 AI 교육이 같은 주제로 5.9배를 냈습니다. 대상을 좁히면 작동합니다."],
+ ["HIDDEN MODE","Antigravity 기능 실험","edit",
+  "코퍼스 합산 좋아요 7,921로 관심도는 최상위인데 코딩툴이라 대학생 문제와 거리가 있습니다. ‘코딩 몰라도 되는’ 각도로 재설정하세요."],
+ ["HIDDEN MODE","바이브 코딩으로 학습·업무 도구 제작","keep",
+  "국내 실측 아웃라이어 1·2위(데브남 54배, 장피엠 21배)가 전부 이 계열입니다. 지금 국내 최대 수요 지대."],
+ ["HIDDEN MODE","Gemini·Gmail·Calendar 생활비서","keep",
+  "이 축의 1순위로 올리세요. 공백 지대이면서 구글 생태계라는 구조적 우위를 쓰고 대학생 문제에 직결됩니다."],
+ ["HIDDEN MODE","AI 채널·크리에이터·도구 큐레이션","cut",
+  "기능 실험이 아니라 축의 정체성을 흐리고, 남의 채널로 트래픽을 보냅니다. 빼면 정확히 5편이 됩니다."],
+ ["Hot Girl남","단발 릴스 1편","keep",
+  "도달층으로 유지. 마지막 3초 프롬프트 공개를 반드시 넣어 유입을 저장으로 연결하세요."],
+ ["실용 프롬프트","치트키 캐러셀","keep",
+  "포맷 자체는 검증됐습니다. 다만 소재가 일반 프롬프트면 48건 경쟁에 묻힙니다 — 반드시 학과·수업 맥락을 붙이세요."],
+ ["실용 프롬프트","해보기 전/후 릴스","keep",
+  "전후 비교는 숫자(시간)가 훅이 됩니다. ‘3시간 → 20분’처럼 제목에 숫자를 노출하세요."],
+ ["실용 프롬프트","학과별 AI 치트키","keep",
+  "이 채널의 최대 무기. 프롬프트 콘텐츠가 포화인 유일한 탈출구가 로컬 특정성입니다."],
+ ["실용 프롬프트","중대피셜 TOP 5","keep",
+  "캠페인의 산출물이므로 캠페인 뒤에 배치. 단독 기획으로 만들면 재료가 없습니다."],
+ ["실용 프롬프트","수업자료 실전 변환","merge",
+  "AI 교양의 PDF 실험과 내용이 겹칩니다. 교양 쪽은 ‘실험과 한계’, 이쪽은 ‘복사용 프롬프트’로 역할을 갈라야 중복이 아닙니다."],
+ ["참여형 캠페인","프롬프트 리그 (제출·검증·TOP5·재가공·학과대결)","edit",
+  "내용은 그대로 두되 순서를 맨 앞으로. 이건 한 편이 아니라 5번 축 전체에 재료를 공급하는 공장입니다."],
+ ["AI POV","학교 탐방 / 캐릭터 POV","edit",
+  "도달 잠재력 최상이지만 푸앙이 사용 승인이 선행돼야 합니다. 미승인 시 자체 캐릭터 + 캠퍼스 공간 재해석으로 대체.", true],
+];
+
+const WEEKS=[
+ ["W1","캠페인 런칭 + 캠퍼스 AI POV","공장을 먼저 돌립니다. 동시에 도달 콘텐츠로 신규 유입을 만듭니다.",
+  "이유 · 제출이 쌓이는 데 2~3주 걸립니다. 지금 안 열면 5주차에 쓸 재료가 없습니다."],
+ ["W2","학과별 치트키 #1 + Hot Girl남","유입된 사람에게 즉시 쓸 것을 줍니다.",
+  "이유 · 도달 다음 주는 저장. 첫 팔로우 전환 구간입니다."],
+ ["W3","Gmail·Calendar 생활비서","공백 지대 + 제미나이 구조적 우위를 처음으로 정면에 세웁니다.",
+  "이유 · 코퍼스 경쟁 2건. 지금 선점하면 이 주제의 기준 콘텐츠가 됩니다."],
+ ["W4","AI 교양 — AI Slop","한 달에 한 번, 신뢰층을 채웁니다.",
+  "이유 · 실용만 4주 나가면 ‘프롬프트 계정’으로 굳습니다."],
+ ["W5","중대피셜 TOP 5 + 치트키 캐러셀","캠페인 1차 수확. 학생 이름이 콘텐츠에 들어갑니다.",
+  "이유 · 참여자가 자기 결과를 공유해 도달이 자연 확장됩니다."],
+ ["W6","바이브 코딩 학습도구 제작","국내 최대 수요 지대에 진입합니다.",
+  "이유 · 실측 아웃라이어 1·2위가 전부 이 계열(54배·21배)."],
+ ["W7","AI 교양 — 검색하고 나서 그린다","제미나이만의 것을 정면으로 다루는 편.",
+  "이유 · 경쟁 2건. 캠페인 성과 보고에 인용할 대표 편이 됩니다."],
+ ["W8","INSIGHT BOOST 1편 + 캠페인 결선","브랜드 마무리와 시즌 클로징.",
+  "이유 · 철학 편은 수요 미검증이라 팔로워가 쌓인 뒤에 내야 안전합니다."],
+];
+
+/* ── render ── */
+document.getElementById("stamp").textContent="작성 "+new Date().toISOString().slice(0,10);
+
+const nGap=DEMAND.filter(d=>d.op).length, nUn=DEMAND.filter(d=>d.vc==="v-un").length;
+[["26","기획된 편"],["22","판정 후 편수"],["1","신규 추가"],
+ [nGap,"공백 지대"],[nUn,"수요 미검증"],["2","선행 리스크"]].forEach(([n,l])=>{
+  const d=document.createElement("div"); d.className="kpi";
+  d.innerHTML='<span class="n"></span><span class="l"></span>';
+  d.querySelector(".n").textContent=n; d.querySelector(".l").textContent=l;
+  document.getElementById("kpis").appendChild(d);
+});
+
+const max=Math.max(...DEMAND.map(d=>d.love));
+const mount=document.getElementById("demand");
+DEMAND.forEach((d,i)=>{
+  const r=document.createElement("div");
+  r.className="row"+(i===0?" hi":"")+(d.op?" op":"");
+  r.innerHTML='<span class="rn"></span><span class="rt"><span class="rb"></span></span>'+
+              '<span class="rv"></span><span class="rc"></span><span class="verdict"></span>';
+  r.querySelector(".rn").textContent=d.t;
+  r.querySelector(".rv").textContent=d.love.toLocaleString("ko-KR");
+  r.querySelector(".rc").textContent="경쟁 "+d.n+"건";
+  const v=r.querySelector(".verdict"); v.textContent=d.v; v.classList.add(d.vc);
+  const bar=r.querySelector(".rb");
+  requestAnimationFrame(()=>{ bar.style.width=(d.love?Math.max(1.5,d.love/max*100):0)+"%"; });
+  mount.appendChild(r);
+});
+
+const VL={keep:"유지",edit:"수정",merge:"통합",cut:"삭제",add:"신규"};
+const tb=document.getElementById("vt");
+VERDICTS.forEach(([line,title,v,why,warn])=>{
+  const tr=document.createElement("tr");
+  tr.innerHTML='<td class="ln"></td><td class="ttl"></td>'+
+               '<td><span class="vd"></span></td><td class="why"></td>';
+  tr.children[0].textContent=line;
+  tr.children[1].textContent=title;
+  const vd=tr.children[2].querySelector(".vd"); vd.textContent=VL[v]; vd.classList.add(v);
+  tr.children[3].textContent=why;
+  if(warn){ const w=document.createElement("span"); w.className="warn";
+    w.textContent="리스크 06"; tr.children[3].appendChild(w); }
+  tb.appendChild(tr);
+});
+
+const wk=document.getElementById("weeks");
+WEEKS.forEach(([n,t,p,why])=>{
+  const d=document.createElement("div"); d.className="wk";
+  d.innerHTML='<span class="n"></span><h3></h3><p></p><p class="why"></p>';
+  d.querySelector(".n").textContent=n;
+  d.querySelector("h3").textContent=t;
+  d.querySelectorAll("p")[0].textContent=p;
+  d.querySelector(".why").textContent=why;
+  wk.appendChild(d);
+});
+</script>
