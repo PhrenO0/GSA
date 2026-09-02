@@ -1,0 +1,412 @@
+{
+ "items": [
+  {
+   "pf": "x",
+   "h": "GeminiApp",
+   "name": "Google Gemini",
+   "url": "https://x.com/GeminiApp/status/1938736711216820327",
+   "text": "Starting today, Pro and Ultra users can schedule actions in the Gemini app.\n\nJust prompt something once, make it a scheduled action, and Gemini will take care of the task as often as you asked it to.\n\nTry things like: \n🎸 \"Find me local music events every Friday.\"\n🗓️ \"Send me a",
+   "likes": 2789,
+   "date": "2025-06-27",
+   "feat": "Scheduled Actions 출시",
+   "key": "scheduled",
+   "official": true
+  },
+  {
+   "pf": "x",
+   "h": "GeminiApp",
+   "name": "Google Gemini",
+   "url": "https://x.com/GeminiApp/status/2093036268288610520",
+   "text": "New productivity upgrades to Gemini Live bring in agentic capabilities, so you can do more with your voice.\n\nNow you can listen to your Daily Brief, triage your email, or get help from Spark, all by talking with Gemini.",
+   "likes": 1438,
+   "date": "2026-08-27",
+   "feat": "Live 에이전트",
+   "key": "live",
+   "official": true
+  },
+  {
+   "pf": "x",
+   "h": "GeminiApp",
+   "name": "Google Gemini",
+   "url": "https://x.com/GeminiApp/status/2092661911120978024",
+   "text": "Gemini Live is moving beyond conversation to handle complex tasks on your behalf.\n\nWith new features in Live like Daily Brief, Gemini Spark, Personal Intelligence, and @Gmail inbox management, you can talk through your day and delegate your to-dos without missing a beat. 🧵",
+   "likes": 1240,
+   "date": "2026-08-26",
+   "feat": "Live + Gmail 정리",
+   "key": "live",
+   "official": true
+  },
+  {
+   "pf": "x",
+   "h": "googlejapan",
+   "name": "Google Japan",
+   "url": "https://x.com/googlejapan/status/2044037960954245419",
+   "text": "本日、Gemini のパーソナライズ機能 Personal Intelligence が日本でも順次展開を開始しました✨️\n\nユーザーの許可に基づき、Gemini と Gmail 、Google フォト、Google 検索、YouTube の履歴と安全に連携が可能となり、一人ひとりに最適化されたサポートができるようになりました。 https://t.co/WOvW70rsGa",
+   "likes": 1062,
+   "date": "2026-04-14",
+   "feat": "Personal Intelligence",
+   "key": "personal",
+   "official": true
+  },
+  {
+   "pf": "x",
+   "h": "Google",
+   "name": "Google",
+   "url": "https://x.com/Google/status/2056801159071883342",
+   "text": "Introducing our newest out-of-the-box agent, Daily Brief. It creates a personalized digest in @GeminiApp that’s designed to be your first stop every morning.\n\nIt synthesizes information from your inbox, your calendar and your tasks to find the most important things for you to be https://t.co/uiWCtSPjIz",
+   "likes": 542,
+   "date": "2026-05-19",
+   "feat": "Daily Brief 발표",
+   "key": "dailybrief",
+   "official": true
+  },
+  {
+   "pf": "x",
+   "h": "GeminiApp",
+   "name": "Google Gemini",
+   "url": "https://x.com/GeminiApp/status/2056800978343764238",
+   "text": "Daily Brief is a new personalized digest that’s designed to be your first stop every morning.\n\nIt gathers info from your inbox, calendar, and tasks to prioritize, organize, and suggest the next steps for you in a super concise morning digest that's built for skimming. #GoogleIO",
+   "likes": 434,
+   "date": "2026-05-19",
+   "feat": "Daily Brief I/O",
+   "key": "dailybrief",
+   "official": true
+  },
+  {
+   "pf": "x",
+   "h": "Google",
+   "name": "Google",
+   "url": "https://x.com/Google/status/2054263722353569880",
+   "text": "With Gemini Intelligence on @Android, you’ll be able to:\n\n✨ Automate multi-step tasks across your apps, like finding your class syllabus in Gmail and putting the books you need in your cart\n✨ Fill out forms in a single tap thanks to Gemini Personal Intelligence\n✨ Turn spoken",
+   "likes": 322,
+   "date": "2026-05-12",
+   "feat": "Android 멀티스텝",
+   "key": "personal",
+   "official": true
+  },
+  {
+   "pf": "x",
+   "h": "Google",
+   "name": "Google",
+   "url": "https://x.com/Google/status/2016576417476038686",
+   "text": "With a new side panel experience for Gemini in @GoogleChrome, you can always have a browsing assistant at your side — no matter what tab you’re currently in. Save time and multitask without interruption — compare options across tabs, summarize product reviews, or handle a https://t.co/KpWzTqZllO",
+   "likes": 256,
+   "date": "2026-01-28",
+   "feat": "Chrome 사이드패널",
+   "key": "chrome",
+   "official": true
+  },
+  {
+   "pf": "x",
+   "h": "shota7180",
+   "name": "木内翔大＠SHIFT AI代表「日本をAI先進国に」𝕏",
+   "url": "https://x.com/shota7180/status/1931122434943680961",
+   "text": "Geminiアプリ、「スケジュールアクション機能」を追加！\n\nこの機能で、たとえば「毎朝8時に最新の金融情報を教えて」など、指定日時に特定のタスク実行を依頼できます。\n\n日常のルーチンタスクの効率化に大きく貢献してくれそうですね。",
+   "likes": 227,
+   "date": "2025-06-06",
+   "feat": "스케줄 액션 (일본)",
+   "key": "scheduled",
+   "official": false
+  },
+  {
+   "pf": "x",
+   "h": "googlecalendar",
+   "name": "Google Calendar",
+   "url": "https://x.com/googlecalendar/status/1920512772401451074",
+   "text": "Gemini + Calendar + @gmail = power trio 💪 Ask Gemini in Gmail to help create an event or check your meeting schedule 📬 ➡️ 📅 → https://t.co/z1P5NitDip https://t.co/HoSkPVGPUU",
+   "likes": 209,
+   "date": "2025-05-08",
+   "feat": "Gmail→Calendar",
+   "key": "calendar",
+   "official": true
+  },
+  {
+   "pf": "x",
+   "h": "googleaidevs",
+   "name": "Google AI Developers",
+   "url": "https://x.com/googleaidevs/status/1949907715595116649",
+   "text": "Check out how the MCP integration of the Gemini SDK connects to Google Calendar and mail via Pipedream to review meetings and send emails: https://t.co/VsjPwts706",
+   "likes": 127,
+   "date": "2025-07-28",
+   "feat": "MCP + Pipedream",
+   "key": "mcp",
+   "official": true
+  },
+  {
+   "pf": "x",
+   "h": "Google",
+   "name": "Google",
+   "url": "https://x.com/Google/status/2016578119092552023",
+   "text": "@googlechrome You can also get things done, quickly, with Connected Apps in @GoogleChrome — including Gmail, Calendar, YouTube, Maps, Google Shopping and Google Flights.\n\nTraveling to a conference? Gemini in Chrome can dig up the email with event details, reference context from Google Flights https://t.co/DvYxc6hgEb",
+   "likes": 126,
+   "date": "2026-01-28",
+   "feat": "Connected Apps",
+   "key": "chrome",
+   "official": true
+  },
+  {
+   "pf": "x",
+   "h": "pixeluibygoogle",
+   "name": "Pixel UI by Google",
+   "url": "https://x.com/pixeluibygoogle/status/2058391543724277837",
+   "text": "Gemini's Daily Brief works only in the US, but you can set it up yourself:\n\n1. Open Gemini Settings\n2. Tap Gem Manager\n3. Select Productivity Planner\n4. Type: \"Create a Daily brief for me every morning.\"\n5. Your Daily Brief will now arrive daily at 8 AM. https://t.co/FRy7gVedwh",
+   "likes": 72,
+   "date": "2026-05-24",
+   "feat": "Daily Brief 우회법",
+   "key": "dailybrief",
+   "official": false
+  },
+  {
+   "pf": "x",
+   "h": "GeminiApp",
+   "name": "Google Gemini",
+   "url": "https://x.com/GeminiApp/status/2060409292537339942",
+   "text": "3) Organize your day with the all new Daily Brief in Gemini\n\nDaily Brief connects your Gmail, Calendar, and Drive and turns it into a helpful list of personalized to-dos, so you can own your morning. https://t.co/HbqlFjLwCL",
+   "likes": 20,
+   "date": "2026-05-29",
+   "feat": "Daily Brief",
+   "key": "dailybrief",
+   "official": true
+  },
+  {
+   "pf": "x",
+   "h": "GeminiApp",
+   "name": "Google Gemini",
+   "url": "https://x.com/GeminiApp/status/1937454820891250896",
+   "text": "@ai_for_success Hi there. To set up a Scheduled Action, go to https://t.co/awhPeHZaAO (or the Gemini mobile app) and enter your prompt, specifying the timing and frequency you want. After submitting, Gemini will summarize the action. You can edit or pause actions in the Scheduled Actions",
+   "likes": 9,
+   "date": "2025-06-24",
+   "feat": "Scheduled Actions 설정법",
+   "key": "scheduled",
+   "official": true
+  },
+  {
+   "pf": "x",
+   "h": "howfxr",
+   "name": "ㆅ",
+   "url": "https://x.com/howfxr/status/2057000914079342620",
+   "text": "Gemini in Chrome also integrates with Google apps like Gmail, Calendar, and Keep for task management and productivity features.\n\nGoogle says users who enable Personal Intelligence can also get context-aware responses based on connected apps like Gmail and Google Photos.",
+   "likes": 1,
+   "date": "2026-05-20",
+   "feat": "Chrome 연동",
+   "key": "chrome",
+   "official": false
+  },
+  {
+   "pf": "x",
+   "h": "JulianGoldieSEO",
+   "name": "Julian Goldie SEO",
+   "url": "https://x.com/JulianGoldieSEO/status/1989379860717081074",
+   "text": "https://t.co/3kwUlCRTfR",
+   "likes": 0,
+   "date": "2025-11-14",
+   "feat": "Workspace Flows",
+   "key": "flows",
+   "official": false
+  },
+  {
+   "pf": "x",
+   "h": "techAU",
+   "name": "techAU",
+   "url": "https://x.com/techAU/status/2009383442958700686",
+   "text": "https://t.co/6vfzeMgipa",
+   "likes": 0,
+   "date": "2026-01-08",
+   "feat": "Gmail의 Gemini 시대",
+   "key": "workspace",
+   "official": false
+  },
+  {
+   "pf": "th",
+   "h": "snu_insurance_mentor",
+   "name": "snu_insurance_mentor",
+   "url": "https://www.threads.com/@snu_insurance_mentor/post/DS9x4rqD6r-",
+   "text": "GEMINI 활용방법 1. 설정에서 \"개인별맞춤 AI\" 페르소나 입력 2. 구글 워크스페이스 연동 — 드라이브·Gmail을 Gemini가 참고 (사고모드 사용할 것). \"@gmail XXX메일 확인해서 ZZZ로 정리해줘\" / \"@google drive XXX 파일 찾아줘\" / \"@google calendar 1월 일정 요약 해줘\" — 설정_연결된앱_Google Workspace 설정 필요 3. GEMS",
+   "likes": null,
+   "date": null,
+   "feat": "연동",
+   "key": "workspace",
+   "official": false
+  },
+  {
+   "pf": "th",
+   "h": "choi.openai",
+   "name": "choi.openai",
+   "url": "https://www.threads.com/@choi.openai/post/DKgWe3xKMsY",
+   "text": "Gemini에서 가장 자주 쓰고 편리한 기능은 단연 캘린더 등록입니다. 출장 일정 사진이나 항공편 자료를 첨부하면 자동으로 캘린더에 일정 등록이 가능하고, 여러 건을 동시에 추가할 수 있습니다. 자주 쓰는 작업이라면 전용 챗봇(Gems)을 만들어두면 시간 절약 효과도 큽니다.",
+   "likes": null,
+   "date": null,
+   "feat": "캘린더 등록",
+   "key": "calendar",
+   "official": false
+  },
+  {
+   "pf": "th",
+   "h": "choi.openai",
+   "name": "choi.openai",
+   "url": "https://www.threads.com/@choi.openai/post/DYirBABmryT",
+   "text": "와.. Gemini가 밤새 일하는 개인 에이전트로 바뀝니다. Gemini Spark는 Gmail, Docs, Sheets, Slides를 읽고 Google Cloud에서 24시간 작업하는 개인 AI 에이전트입니다. 메일 확인, 문서 작성, 일정 관리, follow-up까지 이어서 처리해줍니다.",
+   "likes": null,
+   "date": null,
+   "feat": "Spark 에이전트",
+   "key": "spark",
+   "official": false
+  },
+  {
+   "pf": "th",
+   "h": "choi.openai",
+   "name": "choi.openai",
+   "url": "https://www.threads.com/@choi.openai/post/DXXpVodE8Y6",
+   "text": "구글이 크롬 브라우저를 거대한 AI 비서로 바꿔버렸습니다. 오늘 한국에 'Gemini in Chrome'이 정식 출시되었습니다. 여러 탭에 흩어진 자료를 교차 검증해 표로 묶어주고, 유튜브 영상을 보며 내용을 바로 요약시키며, 보고 있는 이미지를 바로 편집할 수 있습니다.",
+   "likes": null,
+   "date": null,
+   "feat": "Chrome 비서",
+   "key": "chrome",
+   "official": false
+  },
+  {
+   "pf": "th",
+   "h": "choi.openai",
+   "name": "choi.openai",
+   "url": "https://www.threads.com/@choi.openai/post/DA-N2nkyTLd",
+   "text": "화상회의 및 강의를 하시는 분들 주목. 이제는 Gemini를 통해 회의록 자동 변환해보세요. 녹화본 mp4 파일만 업로드하면 깔끔하게 정리해 줍니다. 정확도도 높고 무료로 사용해 볼 수 있습니다. 비대면 수업 녹화 자료를 넣어도 쉽게 정리가 가능합니다. 대학생들이나 화상회의를 하는 분들이라면…",
+   "likes": null,
+   "date": null,
+   "feat": "강의 녹화 정리",
+   "key": "meeting",
+   "official": false
+  },
+  {
+   "pf": "th",
+   "h": "choi.openai",
+   "name": "choi.openai",
+   "url": "https://www.threads.com/@choi.openai/post/DNEAS0UJgl4",
+   "text": "이제 ChatGPT가 사용자의 Gmail 및 Google Calendar에 직접 접근하여 일정을 관리할 수 있게 됩니다. \"내일 일정 계획해 줘\"라는 요청에 캘린더를 분석해 회의 일정을 정리하고 훈련 시간까지 찾아주었습니다. 답장하지 않은 중요한 이메일도 알려줍니다.",
+   "likes": null,
+   "date": null,
+   "feat": "경쟁사 비교",
+   "key": "rival",
+   "official": false
+  },
+  {
+   "pf": "th",
+   "h": "baramtara",
+   "name": "baramtara",
+   "url": "https://www.threads.com/@baramtara/post/DQ29q4Qkmd6",
+   "text": "chatgpt랑 GOOGLE Gemini 두 달 같이 사용하다가 구글 제미나이로 넘어 온 이유. 첫 번째 지메일 및 캘린더 연동. 메일 내용을 검색하고 정리해 주고 관련한 업무를 체크하고 이후 캘린더 추가도 가능하다. 키보드 외 음성으로도 가능하다.",
+   "likes": null,
+   "date": null,
+   "feat": "전환 후기",
+   "key": "workspace",
+   "official": false
+  },
+  {
+   "pf": "th",
+   "h": "specal1849",
+   "name": "specal1849",
+   "url": "https://www.threads.com/@specal1849/post/DMPXS16yYge",
+   "text": "사람들이 잘 모르는 제미나이 팁. 진짜 AI 생태계 최강자는 구글입니다. 제미나이 캘린더 등록 좋다고 많이 이야기했는데, 구글 태스크를 쓰면 자동으로 캘린더도 등록이 됩니다. 구글 태스크 제대로 한번 써볼까요?",
+   "likes": null,
+   "date": null,
+   "feat": "Tasks 연계",
+   "key": "calendar",
+   "official": false
+  },
+  {
+   "pf": "th",
+   "h": "_mr_nine_",
+   "name": "_mr_nine_",
+   "url": "https://www.threads.com/@_mr_nine_/post/DQTPC6aAfYU",
+   "text": "제미나이 어드밴스드 유료 결제해서 메인 AI 툴로 써보는 중. 시작부터 이득인 점이 있어. 어차피 구글 드라이브 2TB(Google One)를 매달 돈 내고 쓰고 있었는데, 제미나이 유료 플랜에 이게 그냥 포함돼 있네. 사실상 AI는 반값에 쓰는 기분이야.",
+   "likes": null,
+   "date": null,
+   "feat": "요금 구조",
+   "key": "pricing",
+   "official": false
+  },
+  {
+   "pf": "th",
+   "h": "ai_superior_sns",
+   "name": "ai_superior_sns",
+   "url": "https://www.threads.com/@ai_superior_sns/post/DReol9PDYqz",
+   "text": "【手順②：Gem に週報作成を依頼する】手順①で設定した Gem に週次レポート作成を依頼する手順。Gmail と Calendar の情報をもとに週報を自動生成させる流れ。",
+   "likes": null,
+   "date": null,
+   "feat": "Gem 주간보고",
+   "key": "gems",
+   "official": false
+  }
+ ],
+ "avail": {
+  "dailybrief": [
+   "미국 전용",
+   "no",
+   "Google은 미국부터 순차 배포라고 밝혔고, Pixel UI 계정이 '미국에서만 작동한다'며 우회법을 올렸습니다."
+  ],
+  "scheduled": [
+   "Pro·Ultra 유료",
+   "paid",
+   "Gemini 공식 계정이 'Pro and Ultra users'라고 명시했습니다."
+  ],
+  "workspace": [
+   "사용 가능",
+   "yes",
+   "국내 사용자들이 @gmail·@google calendar 호출을 실제로 쓰는 게시물로 확인됩니다."
+  ],
+  "calendar": [
+   "사용 가능",
+   "yes",
+   "국내 게시물에서 사진 첨부→캘린더 자동 등록이 실사용으로 확인됩니다."
+  ],
+  "chrome": [
+   "사용 가능",
+   "yes",
+   "Gemini in Chrome 한국 정식 출시가 국내 게시물로 확인됩니다."
+  ],
+  "personal": [
+   "확인 필요",
+   "check",
+   "일본 전개 시작은 공식 발표로 확인되나, 한국 시점은 확인되지 않았습니다."
+  ],
+  "live": [
+   "확인 필요",
+   "check",
+   "Live 자체는 무료·글로벌이나 Gmail 정리 등 에이전트 기능의 국내 적용 범위는 확인되지 않았습니다."
+  ],
+  "spark": [
+   "확인 필요",
+   "check",
+   "국내 소개 게시물은 있으나 실제 이용 가능 범위는 확인되지 않았습니다."
+  ],
+  "gems": [
+   "사용 가능",
+   "yes",
+   "Gems는 국내·일본 게시물 모두에서 실사용이 확인됩니다."
+  ],
+  "meeting": [
+   "사용 가능",
+   "yes",
+   "국내 게시물에서 mp4 업로드→회의록 변환이 무료로 확인됩니다."
+  ],
+  "flows": [
+   "확인 필요",
+   "check",
+   "Workspace Flows는 관리자 정책·요금제에 따라 달라 학생 계정 적용 여부가 확인되지 않았습니다."
+  ],
+  "mcp": [
+   "개발자용",
+   "dev",
+   "SDK·Pipedream 연동 예시라 일반 학생 대상 콘텐츠 소재로는 부적합합니다."
+  ],
+  "rival": [
+   "경쟁사",
+   "rival",
+   "제미나이가 아니라 ChatGPT 기능입니다. 비교 소재로만 쓰세요."
+  ],
+  "pricing": [
+   "사용 가능",
+   "yes",
+   "Google One 요금제 결합은 국내에서도 동일하게 적용됩니다."
+  ]
+ }
+}
