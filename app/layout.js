@@ -12,14 +12,6 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="ko">
-      <head>
-        <link
-          rel="stylesheet"
-          as="style"
-          crossOrigin="anonymous"
-          href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css"
-        />
-      </head>
       <body className="min-h-full flex flex-col font-sans bg-[#fafafa] text-[#0a0a0a] antialiased select-none">
         {children}
       </body>
