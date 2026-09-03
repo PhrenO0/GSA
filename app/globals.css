@@ -1,10 +1,9 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.css");
 @import "tailwindcss";
 
 /* Family names here have to match the strings in ring/params.js — nameFont,
    idxFont and textFont are looked up by name, not imported. */
 
-/* Project names and disciplines. Two real weights, so nameWeight 400 and 500
-   both resolve to a cut rather than a synthesised one. */
 @font-face {
   font-family: "Satoshi";
   src: url("/Satoshi-Regular.otf") format("opentype");
@@ -21,7 +20,6 @@
   font-display: swap;
 }
 
-/* Numbers, years and the load counter. */
 @font-face {
   font-family: "Geist";
   src: url("/Geist-Regular.ttf") format("truetype");
@@ -30,8 +28,6 @@
   font-display: swap;
 }
 
-/* The intro heading and the cursor tag, both rasterised to canvas. Book is
-   the only cut installed, so textWeight has nothing to switch between. */
 @font-face {
   font-family: "PP Neue Montreal";
   src: url("/ppneuemontreal-book.otf") format("opentype");
@@ -47,8 +43,17 @@ body {
   background: #fafafa;
   overflow: hidden;
   overscroll-behavior: none;
+  font-family: "Pretendard", -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
 }
 
 canvas {
   display: block;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }

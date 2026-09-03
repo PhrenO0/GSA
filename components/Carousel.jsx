@@ -1,8 +1,13 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import * as THREE from "three";
 import gsap from "gsap";
+
+import Header from "./Header";
+import ProjectModal from "./ProjectModal";
+import AboutModal from "./AboutModal";
+import CategoryFilter from "./CategoryFilter";
 
 import {
   vertexShader,
@@ -38,6 +43,12 @@ const blankTexture = () => {
 };
 
 export default function Carousel() {
+  const [activeProject, setActiveProject] = useState(PROJECTS[0]);
+  const [modalProject, setModalProject] = useState(null);
+  const [aboutOpen, setAboutOpen] = useState(false);
+  const [activeCategory, setActiveCategory] = useState("all");
+  const pickCellRef = useRef(null);
+
   const containerRef = useRef(null);
   const listRef = useRef(null);
   const itemsRef = useRef([]);
@@ -51,6 +62,18 @@ export default function Carousel() {
     left: { box: null, goo: null, layers: [], plain: null },
     right: { box: null, goo: null, layers: [], plain: null },
   });
+
+  const handleSelectCategory = (catId) => {
+    setActiveCategory(catId);
+    if (catId === "all") {
+      pickCellRef.current?.(0);
+    } else {
+      const idx = PROJECTS.findIndex((p) => p.category === catId);
+      if (idx !== -1) {
+        pickCellRef.current?.(idx);
+      }
+    }
+  };
 
   useEffect(() => {
     const container = containerRef.current;
@@ -320,6 +343,35 @@ export default function Carousel() {
       picking = false;
     };
 
+    const cellOf = (slot) =>
+      imageCount > 0
+        ? (((Math.round(params.imageOffset) - slot) % imageCount) + imageCount) % imageCount
+        : 0;
+
+    const pickCell = (targetCell) => {
+      if (!interactive) return;
+      const count = Math.round(params.count);
+      const slotSize = TAU / count;
+      const targetSlot = ((-targetCell % count) + count) % count;
+      const base = frontAngle - params.seed * DEG - targetSlot * slotSize;
+      const target = base + Math.round((state.spin - base) / TAU) * TAU;
+      const slots = Math.abs(target - state.spin) / slotSize;
+
+      spinVel = 0;
+      settling = false;
+      picking = true;
+      gsap.killTweensOf(state);
+      gsap.to(state, {
+        spin: target,
+        duration: params.pickTime * Math.sqrt(Math.max(1, slots)),
+        ease: params.pickEase,
+        onComplete: () => {
+          picking = false;
+        },
+      });
+    };
+    pickCellRef.current = pickCell;
+
     // Turn the ring until plane i faces front. A tween rather than a target
     // handed to the snap: the snap is a run-in for a throw that is nearly
     // spent and is shaped so it can only slow down, but a pick starts from a
@@ -333,8 +385,14 @@ export default function Carousel() {
       const target = base + Math.round((state.spin - base) / TAU) * TAU;
 
       const slots = Math.abs(target - state.spin) / slot;
-      // Already there. Opening the project belongs here eventually.
-      if (slots < 0.01) return;
+      // Already there. Open detail modal!
+      if (slots < 0.02) {
+        const c = cellOf(signedOffset(i));
+        if (PROJECTS[c]) {
+          setModalProject(PROJECTS[c]);
+        }
+        return;
+      }
 
       spinVel = 0;
       settling = false;
@@ -689,11 +747,6 @@ export default function Carousel() {
       // order, so dealing by index puts every other project side by side and
       // steps the column two names per slot. Negated because turning the ring
       // forward walks the front slot backwards.
-      const imgOff = Math.round(params.imageOffset);
-      const cellOf = (slot) =>
-        imageCount > 0
-          ? (((imgOff - slot) % imageCount) + imageCount) % imageCount
-          : 0;
 
       // Which card the cursor is on. Independent of the hover falloff above:
       // turning the goo off should not take the tag with it.
@@ -1264,6 +1317,9 @@ export default function Carousel() {
       ) {
         announced = shown;
         meta.show(shown);
+        if (PROJECTS[shown]) {
+          setActiveProject(PROJECTS[shown]);
+        }
       }
 
       renderer.render(scene, camera);
@@ -1311,6 +1367,12 @@ export default function Carousel() {
 
   return (
     <>
+      <Header
+        onOpenAbout={() => setAboutOpen(true)}
+        onOpenProject={(p) => setModalProject(p)}
+        activeProject={activeProject}
+      />
+
       {/* touch-none, or the browser claims the gesture for panning and the
           pointermove stream dies mid-drag. Nothing here scrolls — the swipe
           is the carousel. */}
@@ -1445,6 +1507,45 @@ export default function Carousel() {
           </filter>
         </defs>
       </svg>
+
+      {/* Front Project Korean Info Bar & CTA */}
+      {activeProject && (
+        <div className="pointer-events-auto fixed bottom-20 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-1.5 transition-all">
+          <button
+            onClick={() => setModalProject(activeProject)}
+            className="group flex items-center gap-2.5 px-4 py-2 rounded-full bg-white/90 hover:bg-white text-neutral-900 border border-neutral-200/90 shadow-lg shadow-black/5 backdrop-blur-md transition-all hover:scale-105 active:scale-95 cursor-pointer"
+          >
+            <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
+            <span className="text-xs font-bold tracking-tight text-neutral-900">
+              {activeProject.koreanTitle}
+            </span>
+            <span className="text-[11px] font-medium text-neutral-500">
+              {activeProject.tag?.split(" ")[0]}
+            </span>
+            <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-neutral-900 text-white group-hover:bg-indigo-600 transition-colors">
+              치트키 열기 ➔
+            </span>
+          </button>
+        </div>
+      )}
+
+      {/* Category Navigation Bar */}
+      <CategoryFilter
+        activeCategory={activeCategory}
+        onSelectCategory={handleSelectCategory}
+      />
+
+      {/* Project Detail Modal */}
+      <ProjectModal
+        project={modalProject}
+        onClose={() => setModalProject(null)}
+      />
+
+      {/* About Persona Modal */}
+      <AboutModal
+        isOpen={aboutOpen}
+        onClose={() => setAboutOpen(false)}
+      />
     </>
   );
 }

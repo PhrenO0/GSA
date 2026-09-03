@@ -1,29 +1,207 @@
-// Ring order, not filename order. Art is dealt straight down this list, so
-// entry n sits one slot along from n-1 and the column can count 01..18 as the
-// carousel turns. Reordering these rows moves the ring, the column and the
-// numbering together; nothing else needs touching.
-//
-// TODO: every `type` and `year` is placeholder. Names marked (*) are guesses
-// at the subject — the artwork carries no wordmark to read them off.
+// Kim Gemini (김젬니) Campus AI Shortcut Creator & Google Student Ambassador Portfolio Projects
+// Ring order: entry n sits one slot along from n-1
 export const PROJECTS = [
-  { file: "10.webp", name: "Matchday", type: "Motion", year: "2025" }, // *
-  { file: "12.webp", name: "Nightshift", type: "Art Direction", year: "2023" }, // *
-  { file: "14.webp", name: "Volt", type: "Branding", year: "2024" }, // *
-  { file: "16.webp", name: "Keycard", type: "Product Design", year: "2026" }, // *
-  { file: "18.webp", name: "None", type: "Photography", year: "2026" },
-  { file: "2.webp", name: "Prestige Equine", type: "Web Design", year: "2025" },
-  { file: "4.webp", name: "Blue Room", type: "Identity", year: "2023" }, // *
-  { file: "6.webp", name: "Steininvest", type: "Web Design", year: "2024" },
-  { file: "8.webp", name: "CENE+", type: "Branding", year: "2026" },
-  { file: "9.webp", name: "Snuff", type: "Editorial", year: "2024" },
-  { file: "7.webp", name: "Iris", type: "Photography", year: "2023" }, // *
-  { file: "5.webp", name: "Sevenworlds", type: "Development", year: "2025" },
-  { file: "3.webp", name: "Irse a Volver", type: "Art Direction", year: "2024" },
-  { file: "1.webp", name: "PM24", type: "Branding", year: "2024" },
-  { file: "17.webp", name: "Favor", type: "E-commerce", year: "2025" },
-  { file: "15.webp", name: "Freshweb", type: "Web Design", year: "2025" },
-  { file: "13.webp", name: "Proba", type: "Development", year: "2026" },
-  { file: "11.webp", name: "MVN", type: "Identity", year: "2025" },
+  {
+    file: "gemini/p1.jpg",
+    name: "GSA Campus Lead",
+    type: "Ambassador",
+    year: "2025",
+    category: "ambassador",
+    categoryName: "대외활동",
+    koreanTitle: "구글 스튜던트 앰버서더 1기 대표 리드",
+    tag: "#대외활동 #GSA #구글앰버서더",
+    subtitle: "전국 12개 대학 연합 Gemini 캠퍼스 워크숍 총괄 및 앰버서더 네트워크 리드",
+    description: "Google 공식 대학생 앰버서더로서 전국 대학생들에게 Google AI 생태계와 Gemini 실무 활용법을 전파. 전국 12개 대학 순회 워크숍을 주최하여 누적 1,800명 이상의 학생들에게 실전 AI 파이프라인 교육을 제공했습니다.",
+    tip: "💡 선배의 실전 치트키: '구글 앰버서더 지원서 작성 시 거창한 기술 과시보다, 내 전공 동기들의 구체적인 과제·시험 페인포인트를 AI로 직접 풀어본 경험을 숫자로 증명하는 것이 합격의 80%를 결정합니다.'",
+    metrics: "전국 12개 대학 순회 / 누적 교육생 1,800+명 / 만족도 98.4%",
+    tools: ["Gemini 1.5 Pro", "Google AI Studio", "Next.js", "Slack"],
+    linkText: "구글 앰버서더 활동기 보기"
+  },
+  {
+    file: "gemini/p2.jpg",
+    name: "Report 10m Cut",
+    type: "AI Pipeline",
+    year: "2024",
+    category: "study",
+    categoryName: "과제벼락치기",
+    koreanTitle: "과제·레포트 10분 컷 AI 파이프라인",
+    tag: "#과제벼락치기 #학점치트키 #A+레포트",
+    subtitle: "주제 선정 -> 학술 자료 교차 검증 -> 목차화 -> 반론 제시까지 10분 안에 끝내는 워크플로우",
+    description: "단순 복붙이 아닌 공신력 있는 학술 논문 및 통계 데이터를 자동 분석하여, Gemini의 1M 컨텍스트 윈도우로 할루시네이션 없는 탄탄한 레포트 뼈대와 비판적 시각을 도출하는 템플릿입니다.",
+    tip: "💡 선배의 실전 치트키: '그냥 레포트 써달라고 하지 마세요! 1단계: 강의계획서의 평가 기준표(Rubric) 입력 -> 2단계: 깐깐한 교수님 페르소나 부여 -> 3단계: 논리적 허점 역질문 요청!'",
+    metrics: "누적 템플릿 다운로드 32,000+건 / 평점 4.95",
+    tools: ["Gemini 1.5 Flash", "Google Scholar API", "Notion"],
+    linkText: "프롬프트 템플릿 복사"
+  },
+  {
+    file: "gemini/p3.jpg",
+    name: "Resume Analyzer",
+    type: "Career Hack",
+    year: "2025",
+    category: "career",
+    categoryName: "자소서·취준",
+    koreanTitle: "자소서 10초 분석 & 역량 매칭 봇",
+    tag: "#취준자소서 #서류합격 #STAR기법",
+    subtitle: "채용 공고의 JD(직무요구사항)와 내 경험 풀을 비교 분석하여 서류 합격률을 극대화하는 엔진",
+    description: "서류 전형 지원 전 필수 점검 도구. 채용 공고의 핵심 키워드를 자동 분해하고 지원자의 경험 기술서에서 부족한 STAR(Situation, Task, Action, Result) 구조를 정밀 진단합니다.",
+    tip: "💡 선배의 실전 치트키: '인사담당자가 서류를 훑는 시간은 15초 남짓입니다. 두괄식 핵심 성과와 정량적 수치(%, 억, 명)를 Gemini 프롬프트로 문단 첫 줄에 강제 배치하세요.'",
+    metrics: "서류 합격률 78.5% 달성 (표본 사용자 340명)",
+    tools: ["Gemini 1.5 Pro", "FastAPI", "TailwindCSS"],
+    linkText: "자소서 진단봇 체험하기"
+  },
+  {
+    file: "gemini/p4.jpg",
+    name: "Exam Breaker",
+    type: "Study Hack",
+    year: "2024",
+    category: "study",
+    categoryName: "시험벼락치기",
+    koreanTitle: "전공 족보 & 시험 벼락치기 브레이커",
+    tag: "#시험벼락치기 #전공요약 #학점4.3",
+    subtitle: "150페이지 분량 전공 슬라이드를 3줄 핵심 요약 및 교수님 출제 예상 문제 20제로 압축",
+    description: "시험 3일 전 멘붕 온 대학생들을 위한 구원 투수. 방대한 강의 슬라이드 원문을 통째로 분석해 빈출 개념, 서술형 모범 답안, 헷갈리는 개념 간 차이점 비교표를 5분 만에 생성합니다.",
+    tip: "💡 선배의 실전 치트키: '시험 전날 밤엔 교재 전체를 훑지 말고, Gemini에게 \"이 슬라이드에서 5점짜리 헷갈리는 함정 문제 5개 만들어줘\"라고 시키는 것이 가장 강력합니다.'",
+    metrics: "중간/기말 시즌 일일 활성 사용자 12,000+명",
+    tools: ["Gemini Long-Context", "Python", "Streamlit"],
+    linkText: "예상문제 생성기 가이드"
+  },
+  {
+    file: "gemini/p5.jpg",
+    name: "#TeamGemini SNS",
+    type: "Creator",
+    year: "2025",
+    category: "creator",
+    categoryName: "TeamGemini",
+    koreanTitle: "#TeamGemini 인스타그램 채널 운영",
+    tag: "#TeamGemini #인스타크리에이터 #02년생",
+    subtitle: "대학생을 위한 실전 AI 치트키 큐레이션 채널, 팔로워 2.5만 & 릴스 평균 조회수 30만",
+    description: "매주 실전에서 바로 쓸 수 있는 프롬프트와 대학생활 생산성 꿀팁을 릴스와 카드뉴스로 배포. 02년생 친근한 선배 톤앤매너로 Z세대 대학생들의 폭발적인 공감과 바이럴을 이끌어냈습니다.",
+    tip: "💡 선배의 실전 치트키: '릴스는 첫 1.5초가 생명! \"교수님이 이 툴 알면 F 준대요\" 같은 즉각적인 흥미 유발 훅(Hook)으로 도달률을 300% 끌어올릴 수 있습니다.'",
+    metrics: "팔로워 25.4K / 누적 영상 조회수 4,200,000+",
+    tools: ["Figma", "Premiere Pro", "CapCut", "Instagram API"],
+    linkText: "인스타그램 채널 방문"
+  },
+  {
+    file: "gemini/p6.jpg",
+    name: "SQLD 3-Weeks",
+    type: "Certificate",
+    year: "2025",
+    category: "career",
+    categoryName: "자격증",
+    koreanTitle: "SQLD 3주 만에 끝내는 맞춤형 AI 과외선생",
+    tag: "#자격증 #SQLD #노베이스 #한달완성",
+    subtitle: "비전공자 전용 노베이스 SQLD 단기 완성 튜터. 오류 구문 실시간 해설 및 유사 기출 무한 훈련",
+    description: "기출문제 풀이 중 틀린 문제 번호나 사진만 넣으면 어떤 개념이 헷갈렸는지 짚어주고, 시험 전까지 취약한 조인(JOIN)과 윈도우 함수 유형을 집중 공략해주는 맞춤형 학습 프롬프트 팩입니다.",
+    tip: "💡 선배의 실전 치트키: '문제를 풀고 나서 해설만 보지 말고, \"내가 왜 3번 오답을 골랐을까? 내 논리적 착각을 짚어줘\"라고 질문하세요. 메타인지가 폭발적으로 상승합니다.'",
+    metrics: "스터디 챌린지 참가자 450명 중 합격률 91%",
+    tools: ["Gemini 1.5 Flash", "SQLite", "Obsidian"],
+    linkText: "오답노트 프롬프트 받기"
+  },
+  {
+    file: "gemini/p7.jpg",
+    name: "AI DevFest Talk",
+    type: "Keynote",
+    year: "2024",
+    category: "ambassador",
+    categoryName: "대외활동",
+    koreanTitle: "Google AI DevFest 캠퍼스 키노트 스피커",
+    tag: "#대외활동 #GoogleDevFest #라이브코딩",
+    subtitle: "\"비전공자 대학생도 1시간 만에 만드는 캠퍼스 AI 봇\" 현장 500명 대상 라이브 강연",
+    description: "Google for Developers가 주관하는 최대 연례 테크 컨퍼런스에서 학생 대표 연사로 선정. 노코드 & Gemini API를 결합해 대학생 일상 자동화 봇을 현장에서 라이브 빌딩하며 기립 박수를 받았습니다.",
+    tip: "💡 선배의 실전 치트키: '기술 세션 발표의 핵심은 어려운 아키텍처를 나열하는 게 아니라, 청중이 행사장을 나가자마자 10분 만에 따라 해볼 수 있는 작은 성공 경험을 쥐어주는 것입니다.'",
+    metrics: "현장 오프라인 청중 500+명 / 세션 만족도 4.93/5.0",
+    tools: ["Google Cloud", "Google AI Studio", "Keynote"],
+    linkText: "발표 슬라이드 & 녹화본"
+  },
+  {
+    file: "gemini/p8.jpg",
+    name: "Free Period AI",
+    type: "Campus Life",
+    year: "2024",
+    category: "life",
+    categoryName: "캠퍼스라이프",
+    koreanTitle: "공강 200% 활용 캠퍼스 루틴 플래너",
+    tag: "#캠퍼스라이프 #공강루틴 #학점관리",
+    subtitle: "어정쩡한 우주공강(3~4시간)을 스펙 업 & 충전 시간으로 바꿔주는 스마트 동선 큐레이터",
+    description: "에브리타임 시간표를 캡처해 넣으면 도서관 스터디룸 명당 추천, 캠퍼스 주변 집중 잘 되는 조용한 카페 큐레이션, 30분 파워 냅(낮잠) 명소 및 벼락치기 루틴을 자동 생성합니다.",
+    tip: "💡 선배의 실전 치트키: '우주공강에 폰만 보며 시간 날리지 마세요. [1시간 집중 과제 -> 30분 캠퍼스 산책 -> 30분 다음 수업 훑기] 3단 콤보가 학점 4.3의 비결입니다.'",
+    metrics: "대학생 커뮤니티 에브리타임 베스트 게시글 선정 / 스크랩 8,400+",
+    tools: ["Gemini Vision", "Notion API", "Kakao Map API"],
+    linkText: "공강 플래너 사용법"
+  },
+  {
+    file: "gemini/p9.jpg",
+    name: "Speech Ace",
+    type: "Global Skill",
+    year: "2025",
+    category: "career",
+    categoryName: "글로벌스킬",
+    koreanTitle: "글로벌 발표 & 영문 스피치 실시간 코치",
+    tag: "#글로벌 #영어발표 #발표대본 #원어민코칭",
+    subtitle: "국제 학술 대회 및 영어 팀플 발표를 위한 억양 교정, 끊어읽기, 스크립트 실시간 첨삭",
+    description: "영작한 대본을 넣으면 원어민 발표자 특유의 자연스러운 연결어(Transition Words)로 업그레이드하고, 오디오 입력을 통해 발음 명확도와 분당 말하기 속도(WPM)를 실시간 피드백합니다.",
+    tip: "💡 선배의 실전 치트키: '영어 발표는 어려운 단어를 쓰는 게 아니라, 쉬운 단어로 리듬감 있게 끊어 읽는 게 핵심입니다. Gemini에게 슬래시(/) 끊어읽기 표시와 강조 단어 볼드 처리를 부탁하세요.'",
+    metrics: "글로벌 모의 UN 및 영문 프레젠테이션 대회 3회 연속 수상",
+    tools: ["Gemini Multimodal", "Web Speech API", "React"],
+    linkText: "발표 코칭 프롬프트"
+  },
+  {
+    file: "gemini/p10.jpg",
+    name: "Campus Guidebook",
+    type: "Publishing",
+    year: "2024",
+    category: "creator",
+    categoryName: "출판배포",
+    koreanTitle: "Gemini Pro 실전 캠퍼스 가이드북 발간",
+    tag: "#출판배포 #가이드북 #TeamGemini #전자책",
+    subtitle: "대학 생활 A to Z를 담은 80페이지 분량의 오픈소스 실전 전자책 & 캠퍼스 인쇄본",
+    description: "수강신청 팁부터 학술 검색, 동아리 기획서, 자소서까지 대학생들이 직면하는 20가지 상황별 최적의 프롬프트와 워크플로우를 집대성하여 전국 대학생들에게 무료 배포했습니다.",
+    tip: "💡 선배의 실전 치트키: '가이드북의 모든 챕터는 복사해서 바로 붙여넣을 수 있는 [변수 태그: {내전공}, {과목명}, {목표학점}] 형태로 설계되어 있어 초보자도 1초 만에 실행할 수 있습니다.'",
+    metrics: "누적 다운로드 45,000+건 / 12개 대학 총학생회 공식 제휴",
+    tools: ["InDesign", "Gemini 1.5 Pro", "Markdown", "GitBook"],
+    linkText: "가이드북 PDF 무료 다운로드"
+  },
+  {
+    file: "gemini/p11.jpg",
+    name: "GDG Hackathon",
+    type: "Community",
+    year: "2025",
+    category: "ambassador",
+    categoryName: "대외활동",
+    koreanTitle: "GDG on Campus AI 스터디 & 오픈소스",
+    tag: "#대외활동 #GDG #해커톤 #스터디리드",
+    subtitle: "구글 개발자 그룹 대학생 챕터 주관, 비전공자와 전공자가 함께하는 AI 빌더스 서밋",
+    description: "대학 내 기술 장벽을 허물기 위해 비전공자 60명을 대상으로 8주간의 AI 프로덕트 빌딩 스터디를 기획 및 총괄. 참가자 전원이 자신만의 Gemini 기반 웹 서비스를 배포하도록 1:1 기술 멘토링을 이끌었습니다.",
+    tip: "💡 선배의 실전 치트키: '코딩을 몰라도 전혀 두려워할 필요 없습니다. 기획과 문제가 80%이고, 코딩은 AI와 함께 페어 프로그래밍하면 1주일 만에 동작하는 데모를 배포할 수 있습니다.'",
+    metrics: "스터디 완주율 93% / 최종 15개 팀 웹 서비스 런칭 완료",
+    tools: ["GitHub", "Vercel", "Discord", "Gemini API"],
+    linkText: "스터디 프로젝트 결과물"
+  },
+  {
+    file: "gemini/p12.jpg",
+    name: "Notion Campus OS",
+    type: "Productivity",
+    year: "2024",
+    category: "life",
+    categoryName: "캠퍼스라이프",
+    koreanTitle: "대학생활 올인원 노션 치트키 OS",
+    tag: "#캠퍼스라이프 #노션템플릿 #학점4.3 #생산성",
+    subtitle: "수강 과목, 과제 데드라인, 대외활동, 장학금 스케줄을 한눈에 통합 관리하는 대시보드",
+    description: "바쁜 갓생 대학생들을 위한 생산성 끝판왕 시스템. AI 자동 연동 프롬프트 데이터베이스와 연계되어 과제 마감일 카운트다운 및 지원서 포트폴리오를 체계적으로 아카이빙합니다.",
+    tip: "💡 선배의 실전 치트키: '흩어져 있는 강의 계획서, 과제 파일, 시험 일정을 한 페이지에 모아두고 주간 단위로 우선순위(P1, P2)를 매기면 벼락치기 스트레스가 90% 줄어듭니다.'",
+    metrics: "노션 공식 크리에이터 갤러리 추천 템플릿 등재 / 복제 18,000+",
+    tools: ["Notion API", "Next.js", "Formula 2.0"],
+    linkText: "노션 템플릿 복제하기"
+  },
 ];
 
 export const IMAGE_FILES = PROJECTS.map((p) => p.file);
+
+export const CATEGORIES = [
+  { id: "all", name: "전체 치트키", emoji: "⚡" },
+  { id: "ambassador", name: "구글 앰버서더·대외활동", emoji: "🌐" },
+  { id: "study", name: "과제·시험 벼락치기", emoji: "📚" },
+  { id: "career", name: "자소서·취준·자격증", emoji: "💼" },
+  { id: "creator", name: "#TeamGemini 콘텐츠", emoji: "📦" },
+  { id: "life", name: "캠퍼스 라이프", emoji: "🎓" },
+];
